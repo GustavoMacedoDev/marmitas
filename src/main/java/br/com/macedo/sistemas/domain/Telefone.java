@@ -1,21 +1,25 @@
 package br.com.macedo.sistemas.domain;
 
 import java.io.Serializable;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-@Entity
-@Table(name = "cliente")
-public class Cliente implements Serializable{
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
+@Entity
+@Table(name = "telefone")
+public class Telefone implements Serializable{
+
+	/**
+	 * 
+	 */
 	private static final long serialVersionUID = 1L;
 	
 	@Id
@@ -23,15 +27,14 @@ public class Cliente implements Serializable{
 	private Integer id;
 	
 	@Column
-	private String nome;
+	private String numero;
 	
-	@OneToMany(mappedBy = "cliente")
-	private List<Endereco> enderecos;
+	@JsonIgnore
+	@JoinColumn(name = "cliente_id")
+	@ManyToOne
+	private Cliente cliente;
 	
-	@OneToMany(mappedBy = "cliente")
-	private List<Telefone> telefones;
-	
-	public Cliente() {
+	public Telefone() {
 		// TODO Auto-generated constructor stub
 	}
 
@@ -43,30 +46,12 @@ public class Cliente implements Serializable{
 		this.id = id;
 	}
 
-	public String getNome() {
-		return nome;
+	public String getNumero() {
+		return numero;
 	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-
-	
-	public List<Endereco> getEnderecos() {
-		return enderecos;
-	}
-
-	public void setEnderecos(List<Endereco> enderecos) {
-		this.enderecos = enderecos;
-	}
-
-	
-	public List<Telefone> getTelefones() {
-		return telefones;
-	}
-
-	public void setTelefones(List<Telefone> telefones) {
-		this.telefones = telefones;
+	public void setNumero(String numero) {
+		this.numero = numero;
 	}
 
 	@Override
@@ -75,6 +60,14 @@ public class Cliente implements Serializable{
 		int result = 1;
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		return result;
+	}
+	
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
 	}
 
 	@Override
@@ -85,7 +78,7 @@ public class Cliente implements Serializable{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Cliente other = (Cliente) obj;
+		Telefone other = (Telefone) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
