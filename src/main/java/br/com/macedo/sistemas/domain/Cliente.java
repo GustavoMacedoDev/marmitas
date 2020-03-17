@@ -1,15 +1,12 @@
 package br.com.macedo.sistemas.domain;
 
 import java.io.Serializable;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -25,11 +22,11 @@ public class Cliente implements Serializable{
 	@Column
 	private String nome;
 	
-	@OneToMany(mappedBy = "cliente")
-	private List<Endereco> enderecos;
+	@Column
+	private String fone1;
 	
-	@OneToMany(mappedBy = "cliente")
-	private List<Telefone> telefones;
+	@Column
+	private String fone2;
 	
 	public Cliente() {
 		// TODO Auto-generated constructor stub
@@ -50,23 +47,22 @@ public class Cliente implements Serializable{
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-
 	
-	public List<Endereco> getEnderecos() {
-		return enderecos;
+
+	public String getFone1() {
+		return fone1;
 	}
 
-	public void setEnderecos(List<Endereco> enderecos) {
-		this.enderecos = enderecos;
+	public void setFone1(String fone1) {
+		this.fone1 = fone1;
 	}
 
-	
-	public List<Telefone> getTelefones() {
-		return telefones;
+	public String getFone2() {
+		return fone2;
 	}
 
-	public void setTelefones(List<Telefone> telefones) {
-		this.telefones = telefones;
+	public void setFone2(String fone2) {
+		this.fone2 = fone2;
 	}
 
 	@Override

@@ -7,11 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "endereco")
@@ -29,10 +25,6 @@ public class Endereco implements Serializable{
 	@Column
 	private String complemento;
 	
-	@JsonIgnore
-	@JoinColumn(name = "cliente_id")
-	@ManyToOne
-	private Cliente cliente;
 	
 	public Endereco() {
 		// TODO Auto-generated constructor stub
@@ -70,13 +62,6 @@ public class Endereco implements Serializable{
 		this.complemento = complemento;
 	}
 
-	public Cliente getCliente() {
-		return cliente;
-	}
-
-	public void setCliente(Cliente cliente) {
-		this.cliente = cliente;
-	}
 
 	@Override
 	public int hashCode() {
