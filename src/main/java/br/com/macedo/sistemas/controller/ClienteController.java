@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.macedo.sistemas.domain.Cliente;
-import br.com.macedo.sistemas.model.ResponseModel;
+import br.com.macedo.sistemas.model.Response;
 import br.com.macedo.sistemas.repository.ClienteRepository;
 
 @CrossOrigin(origins = "http://localhost:4200/", maxAge = 3600)
@@ -31,20 +31,20 @@ public class ClienteController {
 	}
 	
 	
-	@RequestMapping(value="/cliente", method = RequestMethod.POST, consumes = MediaType.ALL_VALUE)
-	public @ResponseBody ResponseModel salvar(@RequestBody Cliente cliente){
+	/*@RequestMapping(value="/cliente", method = RequestMethod.POST, consumes = MediaType.ALL_VALUE)
+	public @ResponseBody Response salvar(@RequestBody Cliente cliente){
 				
 		
 		try {
 			
 			this.clienteRepository.save(cliente);
 			
-			return new ResponseModel(1,"Registro salvo com sucesso!");
+			return new Response(1,"Registro salvo com sucesso!");
 			
 		}catch(Exception e) {
 			
-			return new ResponseModel(0,e.getMessage());			
+			return new Response(0,e.getMessage());			
 		}
-	}
+	}*/
 
 }

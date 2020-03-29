@@ -1,4 +1,4 @@
-package br.com.macedo.sistemas.repository;
+package br.com.macedo.sistemas.controller;
 
 import java.util.List;
 
@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.macedo.sistemas.domain.ItemPedido;
+import br.com.macedo.sistemas.repository.ItemPedidoRepository;
 
 @CrossOrigin(origins = "http://localhost:4200/", maxAge = 3600)
 @RestController
