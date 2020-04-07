@@ -1,17 +1,26 @@
 package br.com.macedo.sistemas.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+
+import javax.persistence.JoinColumn;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "cliente")
-public class Cliente implements Serializable{
+public class Cliente implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -23,11 +32,25 @@ public class Cliente implements Serializable{
 	private String nome;
 	
 	@Column
-	private String fone1;
+	private String telefone;
 	
-	@Column
-	private String fone2;
+	@JsonIgnore
+	@ManyToMany(cascade=CascadeType.ALL)
+	@JoinTable(name = "cliente_endereco",
+		joinColumns = @JoinColumn(name = "cliente_id"),
+		inverseJoinColumns = @JoinColumn(name = "endereco_id")
+	)
+	private List<Endereco> enderecos = new ArrayList<>();
 	
+	
+	
+	public Cliente(Integer id, String nome, String telefone) {
+		super();
+		this.id = id;
+		this.nome = nome;
+		this.telefone = telefone;
+	}
+
 	public Cliente() {
 		// TODO Auto-generated constructor stub
 	}
@@ -49,20 +72,21 @@ public class Cliente implements Serializable{
 	}
 	
 
-	public String getFone1() {
-		return fone1;
+	public String getTelefone() {
+		return telefone;
 	}
 
-	public void setFone1(String fone1) {
-		this.fone1 = fone1;
+	public void setTelefone(String telefone) {
+		this.telefone = telefone;
+	}
+	
+
+	public List<Endereco> getEnderecos() {
+		return enderecos;
 	}
 
-	public String getFone2() {
-		return fone2;
-	}
-
-	public void setFone2(String fone2) {
-		this.fone2 = fone2;
+	public void setEnderecos(List<Endereco> enderecos) {
+		this.enderecos = enderecos;
 	}
 
 	@Override

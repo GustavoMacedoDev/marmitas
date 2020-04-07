@@ -14,7 +14,7 @@ import br.com.macedo.sistemas.repository.ProdutoRepository;
 
 @RestController
 @RequestMapping("/api")
-@CrossOrigin(origins = "http://localhost:4200/", maxAge = 3600)
+@CrossOrigin(origins = "http://192.168.0.104:4200/", maxAge = 3600)
 public class ProdutoController {
 	
 	@Autowired

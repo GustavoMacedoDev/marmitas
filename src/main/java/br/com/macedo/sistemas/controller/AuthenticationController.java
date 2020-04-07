@@ -28,7 +28,7 @@ import br.com.macedo.sistemas.security.JwtTokenUtil;
 import br.com.macedo.sistemas.security.dto.JwtAuthenticationDto;
 import br.com.macedo.sistemas.security.dto.TokenDto;
 
-@CrossOrigin(origins = "http://localhost:4200/", maxAge = 3600)
+@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/auth")
 
