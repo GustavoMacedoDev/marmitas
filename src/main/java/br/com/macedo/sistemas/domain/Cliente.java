@@ -10,13 +10,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
-import javax.persistence.JoinColumn;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "cliente")
@@ -34,14 +29,8 @@ public class Cliente implements Serializable {
 	@Column
 	private String telefone;
 	
-	@JsonIgnore
-	@ManyToMany(cascade=CascadeType.ALL)
-	@JoinTable(name = "cliente_endereco",
-		joinColumns = @JoinColumn(name = "cliente_id"),
-		inverseJoinColumns = @JoinColumn(name = "endereco_id")
-	)
+	@OneToMany(mappedBy="cliente", cascade=CascadeType.ALL)
 	private List<Endereco> enderecos = new ArrayList<>();
-	
 	
 	
 	public Cliente(Integer id, String nome, String telefone) {

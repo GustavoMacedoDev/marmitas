@@ -7,6 +7,7 @@ import br.com.macedo.sistemas.services.ClienteService;
 
 
 import java.net.URI;
+import java.util.List;
 
 import javax.validation.Valid;
 
@@ -29,6 +30,12 @@ public class ClienteController {
 	@Autowired
 	private ClienteService clienteService;
 	
+	@RequestMapping(value = "/cliente", method = RequestMethod.GET)
+	public List<Cliente> listaClientes() {
+		
+		return this.clienteService.findAll();
+		
+	}
 	
 	@RequestMapping(value = "/cadastrar-pf",method=RequestMethod.POST)
 	public ResponseEntity<Void> insert(@Valid @RequestBody ClienteNewDto objDto) {

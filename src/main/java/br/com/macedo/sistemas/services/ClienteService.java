@@ -1,5 +1,7 @@
 package br.com.macedo.sistemas.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,12 +35,16 @@ public class ClienteService {
 	public Cliente fromDTO(ClienteNewDto objDto) {
 		Cliente cliente = new Cliente(null, objDto.getNome(), objDto.getTelefone());
 		Endereco endereco = new Endereco(null, objDto.getLogradouro(), objDto.getNumero(), objDto.getComplemento(),
-				objDto.getBairro());
+				objDto.getBairro(), cliente);
 		cliente.getEnderecos().add(endereco);
 
 		return cliente;
 	}
 	
+	
+	public List<Cliente> findAll() {
+		return clienteRepository.findAll();
+	}
 	
 
 	

@@ -1,15 +1,17 @@
 package br.com.macedo.sistemas.domain;
 
 import java.io.Serializable;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "endereco")
@@ -29,16 +31,19 @@ public class Endereco implements Serializable{
 	@Column
 	private String bairro;
 	
-	@ManyToMany(mappedBy = "enderecos")
-	private List<Cliente> clientes;
+	@JsonIgnore
+	@ManyToOne
+	@JoinColumn(name="cliente_id")
+	private Cliente cliente;
 	
-	public Endereco(Integer idEndereco, String logradouro, String numero, String complemento, String bairro) {
+	public Endereco(Integer idEndereco, String logradouro, String numero, String complemento, String bairro, Cliente cliente) {
 		super();
 		this.idEndereco = idEndereco;
 		this.logradouro = logradouro;
 		this.numero = numero;
 		this.complemento = complemento;
 		this.bairro = bairro;
+		this.cliente = cliente;
 	}
 
 	public Endereco() {
@@ -85,12 +90,12 @@ public class Endereco implements Serializable{
 		this.bairro = bairro;
 	}
 
-	public List<Cliente> getClientes() {
-		return clientes;
+	public Cliente getCliente() {
+		return cliente;
 	}
 
-	public void setClientes(List<Cliente> clientes) {
-		this.clientes = clientes;
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
 	}
 
 	@Override
