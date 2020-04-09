@@ -11,6 +11,7 @@ import br.com.macedo.sistemas.dto.ClienteDTO;
 import br.com.macedo.sistemas.dto.ClienteNewDto;
 import br.com.macedo.sistemas.repository.ClienteRepository;
 import br.com.macedo.sistemas.repository.EnderecoRepository;
+import javassist.tools.rmi.ObjectNotFoundException;
 
 @Service
 public class ClienteService {
@@ -46,6 +47,13 @@ public class ClienteService {
 		return clienteRepository.findAll();
 	}
 	
-
+	public Cliente findByTelefone(String telefone) {
+		
+		Cliente obj = clienteRepository.findByTelefone(telefone);
+		if (obj == null) {
+			return null;
+		}
+		return obj;
+	}
 	
 }

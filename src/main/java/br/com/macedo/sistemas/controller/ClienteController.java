@@ -2,12 +2,17 @@ package br.com.macedo.sistemas.controller;
 
 
 import br.com.macedo.sistemas.domain.Cliente;
+import br.com.macedo.sistemas.domain.Endereco;
+import br.com.macedo.sistemas.domain.PessoaJuridica;
+import br.com.macedo.sistemas.dto.CadastroPjDto;
+import br.com.macedo.sistemas.dto.ClienteDTO;
 import br.com.macedo.sistemas.dto.ClienteNewDto;
 import br.com.macedo.sistemas.services.ClienteService;
 
 
 import java.net.URI;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
@@ -17,6 +22,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -46,5 +52,27 @@ public class ClienteController {
 		return ResponseEntity.created(uri).build();
 	}
 	
+	/*@RequestMapping(value="/telefone", method=RequestMethod.GET)
+	public ResponseEntity<Cliente> find(@RequestParam(value="value") String telefone) {
+		Cliente obj = clienteService.findByTelefone(telefone);
+		return ResponseEntity.ok().body(obj);
+	}*/
+	
+	@RequestMapping(value = "/clientes", method=RequestMethod.GET)
+	public ResponseEntity<ClienteNewDto> findAll() {
+		Cliente cliente = clienteService.findByTelefone("66996702706");
+		
+		
+		return null;
+	}
+	
+	private ClienteNewDto converterClienteNewDto(Cliente cliente) {
+		ClienteNewDto clienteNewDto = new ClienteNewDto();
+		clienteNewDto.setNome(cliente.getNome());
+		clienteNewDto.setTelefone(cliente.getTelefone());
+		clienteNewDto.setBairro(cliente.get);
+
+		return clienteNewDto;
+	}
 
 }

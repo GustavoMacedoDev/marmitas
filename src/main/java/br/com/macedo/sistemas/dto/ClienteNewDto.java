@@ -6,6 +6,9 @@ import javax.validation.constraints.NotEmpty;
 
 import org.hibernate.validator.constraints.Length;
 
+import br.com.macedo.sistemas.domain.Cliente;
+import br.com.macedo.sistemas.domain.Endereco;
+
 
 public class ClienteNewDto implements Serializable{
 
@@ -33,6 +36,7 @@ public class ClienteNewDto implements Serializable{
 	public ClienteNewDto() {
 		// TODO Auto-generated constructor stub
 	}
+	
 
 	public String getNome() {
 		return nome;

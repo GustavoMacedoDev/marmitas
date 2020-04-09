@@ -14,9 +14,9 @@ import br.com.macedo.sistemas.domain.Pedido;
 import br.com.macedo.sistemas.model.ResponseModel;
 import br.com.macedo.sistemas.repository.PedidoRepository;
 
-@CrossOrigin(origins = "http://localhost:4200/", maxAge = 3600)
+@CrossOrigin(origins = "http://10.0.0.41:4200/", maxAge = 3600)
 @RestController
-@RequestMapping("/service")
+@RequestMapping("/api")
 public class PedidoController {
 	
 	@Autowired
@@ -32,7 +32,6 @@ public class PedidoController {
 	
 	@RequestMapping(value = "/order", method = RequestMethod.POST)
 	public @ResponseBody ResponseModel salvar(@RequestBody Pedido pedido){
-				
 		
 		try {
 			
