@@ -5,6 +5,7 @@ import br.com.macedo.sistemas.domain.Cliente;
 import br.com.macedo.sistemas.domain.Endereco;
 import br.com.macedo.sistemas.domain.PessoaJuridica;
 import br.com.macedo.sistemas.dto.CadastroPjDto;
+import br.com.macedo.sistemas.dto.ClienteBuscaDto;
 import br.com.macedo.sistemas.dto.ClienteDTO;
 import br.com.macedo.sistemas.dto.ClienteNewDto;
 import br.com.macedo.sistemas.services.ClienteService;
@@ -59,18 +60,28 @@ public class ClienteController {
 	}*/
 	
 	@RequestMapping(value = "/clientes", method=RequestMethod.GET)
-	public ResponseEntity<ClienteNewDto> findAll() {
-		Cliente cliente = clienteService.findByTelefone("66996702706");
+	public ClienteBuscaDto findAll(@RequestParam(value="value") String telefone) {
+		Cliente cliente = clienteService.findByTelefone(telefone);
+		ClienteBuscaDto clienteBuscaDto = new ClienteBuscaDto();
+		List<Endereco> endereco = cliente.getEnderecos();
+		for(Endereco end: endereco) {
+			clienteBuscaDto.setComplemento(end.getComplemento());
+			clienteBuscaDto.setBairro(end.getBairro());
+			clienteBuscaDto.setLogradouro(end.getLogradouro());
+			clienteBuscaDto.setNumero(end.getNumero());
+		}
+		clienteBuscaDto.setId(cliente.getId());
+		clienteBuscaDto.setNome(cliente.getNome());
+		clienteBuscaDto.setTelefone(cliente.getTelefone());
 		
-		
-		return null;
+		return clienteBuscaDto;
 	}
 	
 	private ClienteNewDto converterClienteNewDto(Cliente cliente) {
 		ClienteNewDto clienteNewDto = new ClienteNewDto();
 		clienteNewDto.setNome(cliente.getNome());
 		clienteNewDto.setTelefone(cliente.getTelefone());
-		clienteNewDto.setBairro(cliente.get);
+		//clienteNewDto.setBairro(cliente.get);
 
 		return clienteNewDto;
 	}
