@@ -5,7 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.com.macedo.sistemas.domain.Cliente;
-import br.com.macedo.sistemas.dto.ClienteNewDto;
 
 public interface ClienteRepository extends JpaRepository<Cliente, Integer>{
 	

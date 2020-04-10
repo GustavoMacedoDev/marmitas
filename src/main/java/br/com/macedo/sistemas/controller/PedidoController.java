@@ -1,16 +1,24 @@
 package br.com.macedo.sistemas.controller;
 
+import java.net.URI;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import br.com.macedo.sistemas.domain.Cliente;
 import br.com.macedo.sistemas.domain.Pedido;
+import br.com.macedo.sistemas.dto.ClienteNewDto;
+import br.com.macedo.sistemas.dto.PedidoNewDto;
 import br.com.macedo.sistemas.model.ResponseModel;
 import br.com.macedo.sistemas.repository.PedidoRepository;
 
@@ -30,20 +38,17 @@ public class PedidoController {
 		
 	}
 	
-	@RequestMapping(value = "/order", method = RequestMethod.POST)
-	public @ResponseBody ResponseModel salvar(@RequestBody Pedido pedido){
+	/*@RequestMapping(value = "/order", method = RequestMethod.POST)
+	public ResponseEntity<Void> insert(@Valid @RequestBody PedidoNewDto pedidoNewDto) {
 		
-		try {
-			
-			this.pedidoRepository.save(pedido);
-			
-			return new ResponseModel(1, "Sucesso ao salvar ordem");
-			
-		}catch(Exception e) {
-			
-			return new ResponseModel(0, "Erro ao salvar");			
-		}
-	}
+		
+		
+		Cliente obj = clienteService.fromDTO(objDto);
+		obj = clienteService.insert(obj);
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
+				.path("/{id}").buildAndExpand(obj.getId()).toUri();
+		return ResponseEntity.created(uri).build();
+	}*/
 	
 
 }

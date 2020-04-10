@@ -1,14 +1,8 @@
 package br.com.macedo.sistemas.dto;
 
 import java.io.Serializable;
-
 import javax.validation.constraints.NotEmpty;
-
 import org.hibernate.validator.constraints.Length;
-
-import br.com.macedo.sistemas.domain.Cliente;
-import br.com.macedo.sistemas.domain.Endereco;
-
 
 public class ClienteNewDto implements Serializable{
 
