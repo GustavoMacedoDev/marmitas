@@ -12,6 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "forma_pagamento")
 public class FormaPagamento implements Serializable{
@@ -24,6 +26,7 @@ public class FormaPagamento implements Serializable{
 	@Column(name = "forma_pagamento")
 	private String formaPagamento;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy="formaPagamento", cascade=CascadeType.ALL)
 	private List<Pedido> pedidos;
 	

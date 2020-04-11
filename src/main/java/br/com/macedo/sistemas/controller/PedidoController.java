@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.com.macedo.sistemas.domain.Pedido;
+import br.com.macedo.sistemas.dto.PedidoNewDto;
 import br.com.macedo.sistemas.services.PedidoService;
 
 @CrossOrigin(origins = "http://localhost:4200/", maxAge = 3600)
@@ -36,10 +37,13 @@ public class PedidoController {
 	@RequestMapping(value = "/order", method = RequestMethod.POST)
 	public ResponseEntity<Void> salvar(@Valid @RequestBody Pedido pedido) {
 		
+		System.out.println( pedido.getCliente().getId());
+		System.out.println( pedido.getFormaPagamento().getId());
 		pedido = pedidoService.insert(pedido);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
 				.path("/{id}").buildAndExpand(pedido.getIdPedido()).toUri();
 		return ResponseEntity.created(uri).build();
 	}
+	
 
 }

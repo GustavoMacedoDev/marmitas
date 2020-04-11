@@ -6,12 +6,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.com.macedo.sistemas.domain.Cliente;
-import br.com.macedo.sistemas.domain.Endereco;
 import br.com.macedo.sistemas.domain.ItemPedido;
 import br.com.macedo.sistemas.domain.Pedido;
-import br.com.macedo.sistemas.dto.ClienteNewDto;
-import br.com.macedo.sistemas.dto.PedidoNewDto;
 import br.com.macedo.sistemas.repository.ItemPedidoRepository;
 import br.com.macedo.sistemas.repository.PedidoRepository;
 
@@ -39,7 +35,6 @@ public class PedidoService {
 	
 	public Pedido insert(Pedido obj) {
 		
-		System.out.println(obj.getCliente());
 		
 		obj.setIdPedido(null);
 		obj.setInstante(new Date());
@@ -49,7 +44,8 @@ public class PedidoService {
 		
 		for (ItemPedido ip : obj.getItens()) {
 			ip.setDesconto(0.0);
-			ip.setProduto(produtoService.find(ip.getProduto().getIdProduto()));
+			System.out.println(ip.getProduto().getId());
+			ip.setProduto(produtoService.find(ip.getProduto().getId()));
 			ip.setPreco(ip.getProduto().getPreco());
 			ip.setPedido(obj);
 		}
