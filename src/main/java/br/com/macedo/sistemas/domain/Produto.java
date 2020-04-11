@@ -22,7 +22,7 @@ public class Produto implements Serializable{
 	
 	private String nome;
 	
-	private String preco;
+	private Double preco;
 	
 	@JsonIgnore
 	@ManyToMany
@@ -66,11 +66,11 @@ public class Produto implements Serializable{
 		this.nome = nome;
 	}
 
-	public String getPreco() {
+	public Double getPreco() {
 		return preco;
 	}
 
-	public void setPreco(String preco) {
+	public void setPreco(Double preco) {
 		this.preco = preco;
 	}
 

@@ -28,22 +28,27 @@ public class ItemPedido implements Serializable{
 		// TODO Auto-generated constructor stub
 	}
 	
-	public ItemPedido(Pedido pedido, Produto produto, Double desconto, Integer quantidade, Double preco) {
+	public ItemPedido(Pedido pedido, Produto produto, Integer quantidade) {
 		super();
 		id.setPedido(pedido);
 		id.setProduto(produto);
-		this.desconto = desconto;
 		this.quantidade = quantidade;
-		this.preco = preco;
 	}
 
 	@JsonIgnore
 	public Pedido getPedido() {
 		return id.getPedido();
 	}
+	public void setPedido(Pedido pedido) {
+		id.setPedido(pedido);
+	}
 	
 	public Produto getProduto() {
 		return id.getProduto();
+	}
+	
+	public void setProduto(Produto produto) {
+		id.setProduto(produto);
 	}
 	
 	public ItemPedidoPk getId() {

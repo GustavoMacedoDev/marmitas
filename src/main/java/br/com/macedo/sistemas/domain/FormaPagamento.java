@@ -1,7 +1,6 @@
 package br.com.macedo.sistemas.domain;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -13,43 +12,25 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 @Entity
-@Table(name = "cliente")
-public class Cliente implements Serializable {
+@Table(name = "forma_pagamento")
+public class FormaPagamento implements Serializable{
 
 	private static final long serialVersionUID = 1L;
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+
+	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
-	@Column
-	private String nome;
+	@Column(name = "forma_pagamento")
+	private String formaPagamento;
 	
-	@Column
-	private String telefone;
+	@OneToMany(mappedBy="formaPagamento", cascade=CascadeType.ALL)
+	private List<Pedido> pedidos;
 	
-	@OneToMany(mappedBy="cliente", cascade=CascadeType.ALL)
-	private List<Endereco> enderecos = new ArrayList<>();
-	
-	@JsonIgnore
-	@OneToMany(mappedBy="cliente")
-	private List<Pedido> pedidos = new ArrayList<>();
-	
-	public Cliente() {
+	public FormaPagamento() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Cliente(Integer id, String nome, String telefone) {
-		super();
-		this.id = id;
-		this.nome = nome;
-		this.telefone = telefone;
-	}
-
-	
 	public Integer getId() {
 		return id;
 	}
@@ -58,30 +39,12 @@ public class Cliente implements Serializable {
 		this.id = id;
 	}
 
-	public String getNome() {
-		return nome;
+	public String getFormaPagamento() {
+		return formaPagamento;
 	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-	
-
-	public String getTelefone() {
-		return telefone;
-	}
-
-	public void setTelefone(String telefone) {
-		this.telefone = telefone;
-	}
-	
-
-	public List<Endereco> getEnderecos() {
-		return enderecos;
-	}
-
-	public void setEnderecos(List<Endereco> enderecos) {
-		this.enderecos = enderecos;
+	public void setFormaPagamento(String formaPagamento) {
+		this.formaPagamento = formaPagamento;
 	}
 
 	public List<Pedido> getPedidos() {
@@ -108,7 +71,7 @@ public class Cliente implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Cliente other = (Cliente) obj;
+		FormaPagamento other = (FormaPagamento) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -116,5 +79,5 @@ public class Cliente implements Serializable {
 			return false;
 		return true;
 	}
-	
+
 }

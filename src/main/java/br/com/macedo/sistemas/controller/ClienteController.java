@@ -22,8 +22,6 @@ import br.com.macedo.sistemas.dto.ClienteBuscaDto;
 import br.com.macedo.sistemas.dto.ClienteNewDto;
 import br.com.macedo.sistemas.services.ClienteService;
 
-
-
 @CrossOrigin(origins = "http://localhost:4200/", maxAge = 3600)
 @RestController
 @RequestMapping("/api")

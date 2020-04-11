@@ -1,6 +1,7 @@
 package br.com.macedo.sistemas.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,6 +10,7 @@ import br.com.macedo.sistemas.domain.Cliente;
 import br.com.macedo.sistemas.domain.Endereco;
 import br.com.macedo.sistemas.dto.ClienteDTO;
 import br.com.macedo.sistemas.dto.ClienteNewDto;
+import br.com.macedo.sistemas.exceptions.ObjectNotFoundException;
 import br.com.macedo.sistemas.repository.ClienteRepository;
 import br.com.macedo.sistemas.repository.EnderecoRepository;
 
@@ -26,6 +28,13 @@ public class ClienteService {
 		obj = clienteRepository.save(obj);
 		enderecoRepository.saveAll(obj.getEnderecos());
 		return obj;
+	}
+	
+	public Cliente find(Integer id) {
+		
+		Optional<Cliente> obj = clienteRepository.findById(id);
+		return obj.orElseThrow(() -> new ObjectNotFoundException(
+				"Objeto não encontrado! Id: " + id + ", Tipo: " + Cliente.class.getName()));
 	}
 	
 	public Cliente fromDTO(ClienteDTO objDto) {
