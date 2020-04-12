@@ -15,8 +15,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import br.com.macedo.sistemas.domain.Cliente;
+import br.com.macedo.sistemas.domain.FormaPagamento;
 import br.com.macedo.sistemas.domain.Pedido;
 import br.com.macedo.sistemas.dto.PedidoNewDto;
+import br.com.macedo.sistemas.services.ClienteService;
+import br.com.macedo.sistemas.services.FormaPagamentoService;
 import br.com.macedo.sistemas.services.PedidoService;
 
 @CrossOrigin(origins = "http://localhost:4200/", maxAge = 3600)
@@ -27,6 +31,12 @@ public class PedidoController {
 	@Autowired
 	private PedidoService pedidoService;
 	
+	@Autowired
+	private ClienteService clienteService;
+	
+	@Autowired
+	private FormaPagamentoService formaPagamentoService;
+	
 	@RequestMapping(value = "/pedido", method = RequestMethod.GET)
 	public @ResponseBody List<Pedido> getPedidos() {
 		
@@ -35,15 +45,32 @@ public class PedidoController {
 	}
 	
 	@RequestMapping(value = "/order", method = RequestMethod.POST)
-	public ResponseEntity<Void> salvar(@Valid @RequestBody Pedido pedido) {
+	public ResponseEntity<Void> salvar(@Valid @RequestBody PedidoNewDto pedidonewDto) {
+		String cliente = pedidonewDto.getCliente();
+		String formaPagamento = pedidonewDto.getFormaPagamento();
 		
-		System.out.println( pedido.getCliente().getId());
-		System.out.println( pedido.getFormaPagamento().getId());
+		Cliente clienteBuscado = new Cliente();
+		clienteBuscado = clienteService.find(Integer.parseInt(cliente));
+		
+		FormaPagamento formaPagamentoBusca = new FormaPagamento();
+		formaPagamentoBusca = formaPagamentoService.find(Integer.parseInt(formaPagamento));
+		System.out.println(clienteBuscado.getNome());
+		System.out.println(formaPagamentoBusca.getFormaPagamento());
+		
+		Pedido pedido = new Pedido();
+		pedido.setCliente(clienteBuscado);
+		pedido.setFormaPagamento(formaPagamentoBusca);
+		pedido.setItens(pedidonewDto.getItens());
+		
 		pedido = pedidoService.insert(pedido);
+
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
 				.path("/{id}").buildAndExpand(pedido.getIdPedido()).toUri();
 		return ResponseEntity.created(uri).build();
+		
 	}
 	
-
+	
+	
+	
 }

@@ -10,5 +10,6 @@ public interface ClienteRepository extends JpaRepository<Cliente, Integer>{
 	
 	@Transactional(readOnly=true)
 	Cliente findByTelefone(String telefone);
+	
 
 }

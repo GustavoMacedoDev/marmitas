@@ -35,7 +35,6 @@ public class PedidoService {
 	
 	public Pedido insert(Pedido obj) {
 		
-		
 		obj.setIdPedido(null);
 		obj.setInstante(new Date());
 		obj.setFormaPagamento(formaPagamentoService.find(obj.getFormaPagamento().getId()));

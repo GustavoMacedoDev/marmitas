@@ -1,12 +1,8 @@
 package br.com.macedo.sistemas.dto;
 
 import java.io.Serializable;
-import java.text.Normalizer.Form;
-import java.util.List;
 import java.util.Set;
 
-import br.com.macedo.sistemas.domain.Cliente;
-import br.com.macedo.sistemas.domain.FormaPagamento;
 import br.com.macedo.sistemas.domain.ItemPedido;
 import br.com.macedo.sistemas.domain.Produto;
 
@@ -15,7 +11,7 @@ public class PedidoNewDto implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	private String cliente;
-	private FormaPagamento formaPagamento;
+	private String formaPagamento;
 	private Integer quantidade;
 	private Produto produto;
 	private Set<ItemPedido> itens;
@@ -34,12 +30,14 @@ public class PedidoNewDto implements Serializable{
 		this.cliente = cliente;
 	}
 
-	public FormaPagamento getFormaPagamento() {
+	public String getFormaPagamento() {
 		return formaPagamento;
 	}
-	public void setFormaPagamento(FormaPagamento formaPagamento) {
+
+	public void setFormaPagamento(String formaPagamento) {
 		this.formaPagamento = formaPagamento;
 	}
+
 	public Integer getQuantidade() {
 		return quantidade;
 	}
