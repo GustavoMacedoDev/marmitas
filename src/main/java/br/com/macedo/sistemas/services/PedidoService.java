@@ -2,6 +2,7 @@ package br.com.macedo.sistemas.services;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,6 +32,13 @@ public class PedidoService {
 	
 	public List<Pedido> findAll() {
 		return this.pedidoRepository.findAll();
+	}
+	
+	public Optional<Pedido> findById(Integer id) {
+		
+		Optional<Pedido> pedido = this.pedidoRepository.findById(id);
+		
+		return pedido;		
 	}
 	
 	public Pedido insert(Pedido obj) {

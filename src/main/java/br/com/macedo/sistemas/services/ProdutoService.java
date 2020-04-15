@@ -20,6 +20,9 @@ public class ProdutoService {
 	@Autowired
 	private CategoriaService categoriaService;
 	
+	@Autowired
+	private PessoaJuridicaService pessoaJuridicaService;
+	
 	public Produto find(Integer id) {
 		
 		Optional<Produto> obj = produtoRepository.findById(id);
@@ -35,9 +38,11 @@ public class ProdutoService {
 	
 	public Produto insert(ProdutoNewDto produtoNewDto) {
 		Produto produto = new Produto();
+		System.out.println(produtoNewDto.getRestaurante());
 		produto.setNome(produtoNewDto.getNome());
 		produto.setPreco(produtoNewDto.getPreco());
 		produto.setCategoria(categoriaService.find(produtoNewDto.getCategoria()));
+		produto.setPessoaJuridica(pessoaJuridicaService.findByIdPj(produtoNewDto.getRestaurante()));
 		
 		produtoRepository.save(produto);
 		

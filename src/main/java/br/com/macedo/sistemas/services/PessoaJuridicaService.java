@@ -24,5 +24,12 @@ public class PessoaJuridicaService {
 		Optional<PessoaJuridica> pessoaJuridica = pjRepository.findById(id);
 		return pessoaJuridica;
 	}
+	
+	public PessoaJuridica findByIdPj(Integer id) {
+		PessoaJuridica pessoaJuridica = pjRepository.findByIdPj(id);
+		
+		return pessoaJuridica;
+	}
+	
 
 }

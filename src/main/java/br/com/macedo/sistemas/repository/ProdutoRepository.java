@@ -9,7 +9,7 @@ import br.com.macedo.sistemas.domain.Produto;
 
 public interface ProdutoRepository extends JpaRepository<Produto, Integer>{
 	
-	@Query(value = "select p.id_produto, p.nome, p.preco, p.categoria_id from produto p where p.categoria_id = ?1", nativeQuery = true)
+	@Query(value = "select * from produto p where p.categoria_id = ?1", nativeQuery = true)
 	List<Produto> findByCategoriaId(Integer id);
 
 }
