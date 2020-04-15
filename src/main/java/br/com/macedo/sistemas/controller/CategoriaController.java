@@ -1,16 +1,17 @@
 package br.com.macedo.sistemas.controller;
 
 import java.net.URI;
+import java.util.List;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -26,8 +27,13 @@ public class CategoriaController {
 	@Autowired
 	private CategoriaService categoriaService;
 	
-	@PreAuthorize("hasAnyRole('ADMIN')")
-	@RequestMapping(method = RequestMethod.POST)
+	@RequestMapping(value = "/categoria", method = RequestMethod.GET)
+	private @ResponseBody List<Categoria> listaCategorias() {
+		return this.categoriaService.findAll();
+	}
+	
+	
+	@RequestMapping(value = "/categoria", method = RequestMethod.POST)
 	public ResponseEntity<Void> insert(@Valid @RequestBody CategoriaDTO objDto) {
 		Categoria obj = categoriaService.fromDTO(objDto);
 		obj = categoriaService.insert(obj);
@@ -36,4 +42,5 @@ public class CategoriaController {
 		return ResponseEntity.created(uri).build();
 	}
 
+	
 }

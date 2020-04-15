@@ -1,5 +1,8 @@
 package br.com.macedo.sistemas.services;
 
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,4 +26,16 @@ public class CategoriaService {
 		return new Categoria(objDto.getId(), objDto.getNome());
 	}
 
+	public List<Categoria> findAll() {
+		
+		return this.categoriaRepository.findAll();
+	}
+	
+	public Categoria find(int id) {
+		
+		
+		Categoria categoria = categoriaRepository.findById(id);
+		
+		return categoria;
+	}
 }

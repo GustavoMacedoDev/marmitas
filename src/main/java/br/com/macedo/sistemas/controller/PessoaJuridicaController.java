@@ -1,6 +1,8 @@
 package br.com.macedo.sistemas.controller;
 
 import java.security.NoSuchAlgorithmException;
+import java.util.List;
+import java.util.Optional;
 
 import javax.validation.Valid;
 
@@ -11,18 +13,22 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.macedo.sistemas.domain.PessoaJuridica;
 import br.com.macedo.sistemas.dto.CadastroPjDto;
 import br.com.macedo.sistemas.model.Response;
+import br.com.macedo.sistemas.services.PessoaJuridicaService;
 import br.com.macedo.sistemas.services.PjService;
 
 @RestController
-@RequestMapping("/api/cadastrar-pj")
+@RequestMapping("/api")
 @CrossOrigin(origins = "http://localhost:4200/", maxAge = 3600)
 public class PessoaJuridicaController {
 
@@ -31,12 +37,28 @@ public class PessoaJuridicaController {
 
 	@Autowired
 	private PjService pjService;
+	
+	@Autowired
+	private PessoaJuridicaService pessoaJuridicaService;
 
 	public PessoaJuridicaController() {
 		// TODO Auto-generated constructor stub
 	}
+	
+	@RequestMapping(value = "/pj", method = RequestMethod.GET)
+	public @ResponseBody List<PessoaJuridica> findAll() {
+		return this.pessoaJuridicaService.findAll();
+	}
+	
+	@RequestMapping(value = "/pj/{id}", method = RequestMethod.GET)
+	public @ResponseBody Optional<PessoaJuridica> find(@PathVariable Integer id) {
+		Optional<PessoaJuridica> pessoaJuridica = pessoaJuridicaService.find(id);
+		
+		return pessoaJuridica;
+	}
+	
 
-	@PostMapping
+	@PostMapping(value = "/cadastrar-pj")
 	public ResponseEntity<Response<CadastroPjDto>> cadastrar(@Valid @RequestBody CadastroPjDto cadastroPjDto,
 			BindingResult result) throws NoSuchAlgorithmException {
 		log.info("Cadastrando PJ: {}", cadastroPjDto.toString());
