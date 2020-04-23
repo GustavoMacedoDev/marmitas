@@ -34,7 +34,9 @@ public class PessoaJuridica implements Serializable{
 	private Date dataCriacao;
 	@Column(name = "data_atualizacao", nullable = false)
 	private Date dataAtualizacao;
-
+	@Column(name = "status")
+	private int status;
+	
 	@JsonIgnore
 	@OneToMany(mappedBy="categoria", cascade=CascadeType.ALL)
 	private List<Produto> produtos = new ArrayList<>();
@@ -83,6 +85,14 @@ public class PessoaJuridica implements Serializable{
 		this.dataAtualizacao = dataAtualizacao;
 	}
 	
+	public int getStatus() {
+		return status;
+	}
+
+	public void setStatus(int status) {
+		this.status = status;
+	}
+
 	@PreUpdate
     public void preUpdate() {
         dataAtualizacao = new Date();
