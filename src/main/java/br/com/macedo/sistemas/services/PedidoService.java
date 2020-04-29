@@ -34,12 +34,31 @@ public class PedidoService {
 		return this.pedidoRepository.findAll();
 	}
 	
-	public Optional<Pedido> findById(Integer id) {
+	public Pedido findById(Integer id) {
 		
 		Optional<Pedido> pedido = this.pedidoRepository.findById(id);
+
+		Pedido ped = new Pedido();
+		ped.setCliente(pedido.get().getCliente());
+		ped.setFormaPagamento(pedido.get().getFormaPagamento());
+		ped.setInstante(pedido.get().getInstante());
 		
-		return pedido;		
+		double soma = 0;
+		
+		for(ItemPedido it: pedido.get().getItens()) {
+			double preco = it.getPreco();
+			int quantidade = it.getQuantidade();
+			double total = preco * quantidade;
+			soma += total;
+			
+		}
+		ped.setIdPedido(pedido.get().getIdPedido());
+		ped.setTotalPedido(soma);
+		ped.setItens(pedido.get().getItens());
+		
+		return ped;		
 	}
+	
 	
 	public Pedido insert(Pedido obj) {
 		

@@ -2,7 +2,6 @@ package br.com.macedo.sistemas.controller;
 
 import java.net.URI;
 import java.util.List;
-import java.util.Optional;
 
 import javax.validation.Valid;
 
@@ -47,13 +46,14 @@ public class PedidoController {
 	}
 	
 	@RequestMapping(value = "/pedido/{id}", method = RequestMethod.GET)
-	public @ResponseBody Optional<Pedido> findById(@PathVariable Integer id) {
+	public @ResponseBody Pedido findById(@PathVariable Integer id) {
 		
-		Optional<Pedido> pedido = this.pedidoService.findById(id);
+		Pedido pedido = this.pedidoService.findById(id);
 		
 		return pedido;
 		
 	}
+	
 	
 	@RequestMapping(value = "/order", method = RequestMethod.POST)
 	public ResponseEntity<Void> salvar(@Valid @RequestBody PedidoNewDto pedidonewDto) {

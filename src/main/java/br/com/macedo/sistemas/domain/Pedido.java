@@ -44,6 +44,9 @@ public class Pedido implements Serializable{
 	@OneToMany(mappedBy = "id.pedido")
 	private Set<ItemPedido> itens = new HashSet<>();
 	
+	@Column(name = "total_pedido")
+	private Double totalPedido;
+	
 	public Pedido() {
 		// TODO Auto-generated constructor stub
 	}
@@ -108,7 +111,15 @@ public class Pedido implements Serializable{
 	public void setMesa(Mesa mesa) {
 		this.mesa = mesa;
 	}
+	
 
+	public Double getTotalPedido() {
+		return totalPedido;
+	}
+
+	public void setTotalPedido(Double totalPedido) {
+		this.totalPedido = totalPedido;
+	}
 
 	@Override
 	public int hashCode() {
