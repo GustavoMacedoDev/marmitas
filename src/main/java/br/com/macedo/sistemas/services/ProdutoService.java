@@ -3,6 +3,8 @@ package br.com.macedo.sistemas.services;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +24,10 @@ public class ProdutoService {
 	
 	@Autowired
 	private PessoaJuridicaService pessoaJuridicaService;
+	
+	public List<Produto> findAllAtivos(int status) {
+		return this.produtoRepository.findAllByStatus(status);
+	}
 	
 	public Produto find(Integer id) {
 		
@@ -49,4 +55,38 @@ public class ProdutoService {
 		return produto;
 	}
 
+	public @Valid Produto update(Produto produto) {
+		
+		this.produtoRepository.save(produto);
+		
+		return produto;
+	}
+
+	public List<Produto> findAll() {
+		return this.produtoRepository.findAll();
+	}
+
+	public Produto inativa(Integer id) {
+		
+		Produto produto = this.produtoRepository.inativaProduto(id);
+		
+		return produto;
+		
+	}
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

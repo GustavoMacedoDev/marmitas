@@ -20,9 +20,12 @@ public class Produto implements Serializable{
 	@Column(name = "id_produto")
 	private Integer id;
 	
+	@Column(unique = true)
 	private String nome;
 	
 	private Double preco;
+	
+	private int status = 0;
 	
 	@ManyToOne
 	private Categoria categoria;
@@ -47,8 +50,6 @@ public class Produto implements Serializable{
 		return lista;
 	}
 
-
-
 	public Integer getId() {
 		return id;
 	}
@@ -71,6 +72,14 @@ public class Produto implements Serializable{
 
 	public void setPreco(Double preco) {
 		this.preco = preco;
+	}
+	
+	public int getStatus() {
+		return status;
+	}
+
+	public void setStatus(int status) {
+		this.status = status;
 	}
 
 	public Set<ItemPedido> getItens() {

@@ -19,34 +19,45 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.com.macedo.sistemas.domain.Produto;
 import br.com.macedo.sistemas.dto.ProdutoNewDto;
-import br.com.macedo.sistemas.repository.ProdutoRepository;
 import br.com.macedo.sistemas.services.ProdutoService;
 @CrossOrigin(origins = "http://localhost:4200/", maxAge = 3600)
 @RestController
 @RequestMapping("/api")
 public class ProdutoController {
 	
-	@Autowired
-	private ProdutoRepository produtoRepository;
 	
 	@Autowired
 	private ProdutoService produtoService;
 	
+	@RequestMapping(value = "/produtosativos", method = RequestMethod.GET)
+	public @ResponseBody List<Produto> getProdutosAtivos() {
+		
+		return this.produtoService.findAllAtivos(0);
+		
+	}
+	
 	@RequestMapping(value = "/produtos", method = RequestMethod.GET)
 	public @ResponseBody List<Produto> getProdutos() {
 		
-		return this.produtoRepository.findAll();
+		return this.produtoService.findAll();
 		
 	}
+	
 	
 	@RequestMapping(value = "/produto/{id}", method = RequestMethod.GET)
 	public @ResponseBody List<Produto> findByCategoria(@PathVariable Integer id) {
 		
-		System.out.println(id);
-		
 		List<Produto> produtos = produtoService.findByCategoria(id);
 		
 		return produtos;
+	}
+	
+	@RequestMapping(value = "/produtoid/{id}", method = RequestMethod.GET)
+	public @ResponseBody Produto findByIdProduto(@PathVariable Integer id) {
+		
+		Produto produto = produtoService.find(id);
+		
+		return produto;
 	}
 	
 	
@@ -63,5 +74,35 @@ public class ProdutoController {
 		return ResponseEntity.created(uri).build();
 	}
 	
-
+	@RequestMapping(value = "/produto", method = RequestMethod.PUT)
+	public ResponseEntity<Void> update(@Valid @RequestBody Produto produto) {
+		
+		produto = this.produtoService.update(produto);
+		
+		return ResponseEntity.noContent().build();
+	}
+	
+	@RequestMapping(value = "/produtoinativa/{id}", method = RequestMethod.PUT)
+	public ResponseEntity<Void> inativaProduto(@PathVariable Integer id) {
+		
+		Produto produto = this.produtoService.inativa(id);
+		
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
+				.path("/{id}").buildAndExpand(produto.getId()).toUri();
+			 ResponseEntity.created(uri).build();
+			
+			return ResponseEntity.created(uri).build();
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
