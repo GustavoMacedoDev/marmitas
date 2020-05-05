@@ -33,6 +33,9 @@ public class Produto implements Serializable{
 	@ManyToOne
 	private PessoaJuridica pessoaJuridica;
 	
+	@ManyToOne
+	private OpcaoAtendimento opAtendimento;
+	
 	@JsonIgnore
 	@OneToMany(mappedBy="id.produto")
 	private Set<ItemPedido> itens = new HashSet<>();
@@ -105,6 +108,14 @@ public class Produto implements Serializable{
 
 	public void setPessoaJuridica(PessoaJuridica pessoaJuridica) {
 		this.pessoaJuridica = pessoaJuridica;
+	}
+	
+	public OpcaoAtendimento getOpAtendimento() {
+		return opAtendimento;
+	}
+
+	public void setOpAtendimento(OpcaoAtendimento opAtendimento) {
+		this.opAtendimento = opAtendimento;
 	}
 
 	@Override

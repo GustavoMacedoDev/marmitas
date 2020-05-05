@@ -20,7 +20,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import br.com.macedo.sistemas.domain.Produto;
 import br.com.macedo.sistemas.dto.ProdutoNewDto;
 import br.com.macedo.sistemas.services.ProdutoService;
-@CrossOrigin(origins = "http://localhost:4200/", maxAge = 3600)
+@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/api")
 public class ProdutoController {
@@ -28,11 +28,25 @@ public class ProdutoController {
 	
 	@Autowired
 	private ProdutoService produtoService;
-	
+	 
 	@RequestMapping(value = "/produtosativos", method = RequestMethod.GET)
 	public @ResponseBody List<Produto> getProdutosAtivos() {
 		
 		return this.produtoService.findAllAtivos(0);
+		
+	}
+	
+	@RequestMapping(value = "/produtosquiosque", method = RequestMethod.GET)
+	public @ResponseBody List<Produto> getProdutosQuiosque() {
+		
+		return this.produtoService.getProdutosQuiosque();
+		
+	}
+	
+	@RequestMapping(value = "/produtosentrega", method = RequestMethod.GET)
+	public @ResponseBody List<Produto> getProdutosEntrega() {
+		
+		return this.produtoService.getProdutosEntrega();
 		
 	}
 	
@@ -85,13 +99,10 @@ public class ProdutoController {
 	@RequestMapping(value = "/produtoinativa/{id}", method = RequestMethod.PUT)
 	public ResponseEntity<Void> inativaProduto(@PathVariable Integer id) {
 		
-		Produto produto = this.produtoService.inativa(id);
+		this.produtoService.inativa(id);
 		
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
-				.path("/{id}").buildAndExpand(produto.getId()).toUri();
-			 ResponseEntity.created(uri).build();
 			
-			return ResponseEntity.created(uri).build();
+		return ResponseEntity.noContent().build();
 	}
 }
 

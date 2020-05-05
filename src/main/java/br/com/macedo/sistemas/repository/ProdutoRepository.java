@@ -14,7 +14,13 @@ public interface ProdutoRepository extends JpaRepository<Produto, Integer>{
 	
 	List<Produto> findAllByStatus(int status);
 
-	@Query(value = "update produto p set p.status = 1 where p.id_produto = ?1", nativeQuery = true)
+	@Query(value = "update produto set status = 1 where id_produto = ?1", nativeQuery = true)
 	Produto inativaProduto(Integer id);
+
+	@Query(value = "select * from produto p where p.categoria_id = 1 OR p.categoria_id = 6", nativeQuery = true)
+	List<Produto> findAllQuiosque();
+
+	@Query(value = "select * from produto p where p.categoria_id = 1 OR p.categoria_id = 4 OR p.categoria_id = 5", nativeQuery = true)
+	List<Produto> findAllEntrega();
 
 }

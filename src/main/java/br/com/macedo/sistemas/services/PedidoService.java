@@ -42,6 +42,7 @@ public class PedidoService {
 		ped.setCliente(pedido.get().getCliente());
 		ped.setFormaPagamento(pedido.get().getFormaPagamento());
 		ped.setInstante(pedido.get().getInstante());
+		ped.setMesa(pedido.get().getMesa());
 		
 		double soma = 0;
 		
@@ -60,12 +61,33 @@ public class PedidoService {
 	}
 	
 	
-	public Pedido insert(Pedido obj) {
+	public Pedido insertEntrega(Pedido obj) {
 		
 		obj.setIdPedido(null);
 		obj.setInstante(new Date());
-		obj.setFormaPagamento(formaPagamentoService.find(obj.getFormaPagamento().getId()));
-		obj.setCliente(clienteService.find(obj.getCliente().getId()));
+		obj.setFormaPagamento(obj.getFormaPagamento());
+		obj.setCliente(obj.getCliente());
+		obj.setOpAtendimento(obj.getOpAtendimento());
+		obj = pedidoRepository.save(obj);
+		
+		for (ItemPedido ip : obj.getItens()) {
+			ip.setDesconto(0.0);
+			System.out.println(ip.getProduto().getId());
+			ip.setProduto(produtoService.find(ip.getProduto().getId()));
+			ip.setPreco(ip.getProduto().getPreco());
+			ip.setPedido(obj);
+		}
+		itemPedidoRepository.saveAll(obj.getItens());
+		return obj;
+	}
+	
+	public Pedido insertMesa(Pedido obj) {
+		
+		obj.setIdPedido(null);
+		obj.setInstante(new Date());
+		obj.setFormaPagamento(null);
+		obj.setCliente(null);
+		obj.setOpAtendimento(obj.getOpAtendimento());
 		obj = pedidoRepository.save(obj);
 		
 		for (ItemPedido ip : obj.getItens()) {
@@ -79,5 +101,8 @@ public class PedidoService {
 		return obj;
 	}
 
+	public List<Pedido> findByOpAtendimentoId(Integer id) {
+		return this.pedidoRepository.findByOpAtendimentoId(id);
+	}
 	
 }

@@ -47,6 +47,9 @@ public class Pedido implements Serializable{
 	@Column(name = "total_pedido")
 	private Double totalPedido;
 	
+	@ManyToOne
+	private OpcaoAtendimento opAtendimento;
+	
 	public Pedido() {
 		// TODO Auto-generated constructor stub
 	}
@@ -120,6 +123,15 @@ public class Pedido implements Serializable{
 	public void setTotalPedido(Double totalPedido) {
 		this.totalPedido = totalPedido;
 	}
+	
+	public OpcaoAtendimento getOpAtendimento() {
+		return opAtendimento;
+	}
+
+	public void setOpAtendimento(OpcaoAtendimento opAtendimento) {
+		this.opAtendimento = opAtendimento;
+	}
+
 
 	@Override
 	public int hashCode() {

@@ -74,6 +74,14 @@ public class ProdutoService {
 		
 	}
 
+	public List<Produto> getProdutosQuiosque() {
+		return this.produtoRepository.findAllQuiosque();
+	}
+
+	public List<Produto> getProdutosEntrega() {
+		return this.produtoRepository.findAllEntrega();
+	}
+
 }
 
 

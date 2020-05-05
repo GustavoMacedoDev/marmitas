@@ -1,6 +1,7 @@
 package br.com.macedo.sistemas.services;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Random;
 
 import javax.validation.Valid;
@@ -20,6 +21,11 @@ public class MesaService {
 	
 	public List<Mesa> findAll() {
 		return this.mesaRepository.findAll();
+	}
+	
+	public Optional<Mesa> buscaMesaPorId(Integer id) {
+		return this.mesaRepository.findById(id);
+		
 	}
 
 	public @Valid Mesa insert(@Valid MesaDto mesaDto) {

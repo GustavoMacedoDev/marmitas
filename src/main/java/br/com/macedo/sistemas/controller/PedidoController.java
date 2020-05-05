@@ -18,7 +18,9 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.com.macedo.sistemas.domain.Cliente;
 import br.com.macedo.sistemas.domain.FormaPagamento;
+import br.com.macedo.sistemas.domain.OpcaoAtendimento;
 import br.com.macedo.sistemas.domain.Pedido;
+import br.com.macedo.sistemas.dto.PedidoMesaDto;
 import br.com.macedo.sistemas.dto.PedidoNewDto;
 import br.com.macedo.sistemas.services.ClienteService;
 import br.com.macedo.sistemas.services.FormaPagamentoService;
@@ -54,6 +56,15 @@ public class PedidoController {
 		
 	}
 	
+	@RequestMapping(value = "/pedidoMesa/{id}", method = RequestMethod.GET)
+	public @ResponseBody List<Pedido> findByOpAtendimento(@PathVariable Integer id) {
+		
+		List<Pedido> pedidos = this.pedidoService.findByOpAtendimentoId(id);
+		
+		return pedidos;
+		
+	}
+	
 	
 	@RequestMapping(value = "/order", method = RequestMethod.POST)
 	public ResponseEntity<Void> salvar(@Valid @RequestBody PedidoNewDto pedidonewDto) {
@@ -68,12 +79,35 @@ public class PedidoController {
 		System.out.println(clienteBuscado.getNome());
 		System.out.println(formaPagamentoBusca.getFormaPagamento());
 		
+		OpcaoAtendimento op = new OpcaoAtendimento();
+		op.setId(2);
 		Pedido pedido = new Pedido();
 		pedido.setCliente(clienteBuscado);
 		pedido.setFormaPagamento(formaPagamentoBusca);
 		pedido.setItens(pedidonewDto.getItens());
+		pedido.setOpAtendimento(op);
+		pedido = pedidoService.insertEntrega(pedido);
+
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
+				.path("/{id}").buildAndExpand(pedido.getIdPedido()).toUri();
+		return ResponseEntity.created(uri).build();
 		
-		pedido = pedidoService.insert(pedido);
+	}
+	
+	@RequestMapping(value = "/orderMesa", method = RequestMethod.POST)
+	public ResponseEntity<Void> salvaPedidoMesa(@Valid @RequestBody PedidoMesaDto pedidoMesaDto) {
+		
+		System.out.println(pedidoMesaDto.getMesa());
+		OpcaoAtendimento op = new OpcaoAtendimento();
+		op.setId(3);
+		Pedido pedido = new Pedido();
+		pedido.setCliente(null);
+		pedido.setFormaPagamento(null);
+		pedido.setItens(pedidoMesaDto.getItens());
+		pedido.setMesa(pedidoMesaDto.getMesa());
+		pedido.setOpAtendimento(op);
+		
+		pedido = pedidoService.insertMesa(pedido);
 
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
 				.path("/{id}").buildAndExpand(pedido.getIdPedido()).toUri();

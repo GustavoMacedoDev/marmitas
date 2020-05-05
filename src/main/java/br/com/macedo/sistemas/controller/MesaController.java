@@ -2,12 +2,14 @@ package br.com.macedo.sistemas.controller;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Optional;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,6 +33,15 @@ public class MesaController {
 	@RequestMapping(value = "/mesas", method = RequestMethod.GET)
 	public @ResponseBody List<Mesa> listaMesas() {
 		return mesaService.findAll();
+	}
+	
+	@RequestMapping(value = "/mesa/{id}", method = RequestMethod.GET)
+	public @ResponseBody Optional<Mesa> buscaMesaPorId(@Valid @PathVariable Integer id) {
+		
+		Optional<Mesa> mesa = this.mesaService.buscaMesaPorId(id);
+		
+		return mesa;
+		
 	}
 
 	@PostMapping(value = "/mesa")
