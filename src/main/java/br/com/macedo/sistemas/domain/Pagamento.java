@@ -1,40 +1,37 @@
 package br.com.macedo.sistemas.domain;
 
 import java.io.Serializable;
-import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 @Entity
-@Table(name = "forma_pagamento")
-public class FormaPagamento implements Serializable{
+@Table(name = "pagamento")
+public class Pagamento implements Serializable{
 
 	private static final long serialVersionUID = 1L;
-
+	
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
-	@Column(name = "forma_pagamento")
-	private String formaPagamento;
+	@Column(name = "valor_pago")
+	private Double valorPago;
 	
-	@JsonIgnore
-	@OneToMany(mappedBy="formaPagamento", cascade=CascadeType.ALL)
-	private List<Pedido> pedidos;
+	@ManyToOne
+	@JoinColumn(name = "forma_pagamento_id")
+	private FormaPagamento formaPagamento;
 	
-	@JsonIgnore
-	@OneToMany(mappedBy="formaPagamento", cascade=CascadeType.ALL)
-	private List<Pagamento> pagamentos;
+	@ManyToOne
+	@JoinColumn(name = "mesa_id")
+	private Mesa mesa;
 	
-	public FormaPagamento() {
+	public Pagamento() {
 		// TODO Auto-generated constructor stub
 	}
 
@@ -46,29 +43,28 @@ public class FormaPagamento implements Serializable{
 		this.id = id;
 	}
 
-	public String getFormaPagamento() {
+	public Double getValorPago() {
+		return valorPago;
+	}
+
+	public void setValorPago(Double valorPago) {
+		this.valorPago = valorPago;
+	}
+
+	public FormaPagamento getFormaPagamento() {
 		return formaPagamento;
 	}
 
-	public void setFormaPagamento(String formaPagamento) {
+	public void setFormaPagamento(FormaPagamento formaPagamento) {
 		this.formaPagamento = formaPagamento;
 	}
 
-	public List<Pedido> getPedidos() {
-		return pedidos;
+	public Mesa getMesa() {
+		return mesa;
 	}
 
-	public void setPedidos(List<Pedido> pedidos) {
-		this.pedidos = pedidos;
-	}
-	
-
-	public List<Pagamento> getPagamentos() {
-		return pagamentos;
-	}
-
-	public void setPagamentos(List<Pagamento> pagamentos) {
-		this.pagamentos = pagamentos;
+	public void setMesa(Mesa mesa) {
+		this.mesa = mesa;
 	}
 
 	@Override
@@ -87,7 +83,7 @@ public class FormaPagamento implements Serializable{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		FormaPagamento other = (FormaPagamento) obj;
+		Pagamento other = (Pagamento) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -95,5 +91,6 @@ public class FormaPagamento implements Serializable{
 			return false;
 		return true;
 	}
+	
 
 }

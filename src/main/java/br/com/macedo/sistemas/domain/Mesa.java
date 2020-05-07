@@ -32,6 +32,10 @@ public class Mesa implements Serializable{
 	@JsonIgnore
 	private List<Pedido> pedidos = new ArrayList<>();
 	
+	@OneToMany(mappedBy = "mesa")
+	@JsonIgnore
+	private List<Pagamento> pagamentos = new ArrayList<>();
+	
 	public Mesa() {
 		// TODO Auto-generated constructor stub
 	}
@@ -67,6 +71,14 @@ public class Mesa implements Serializable{
 
 	public void setPedidos(List<Pedido> pedidos) {
 		this.pedidos = pedidos;
+	}
+
+	public List<Pagamento> getPagamentos() {
+		return pagamentos;
+	}
+
+	public void setPagamentos(List<Pagamento> pagamentos) {
+		this.pagamentos = pagamentos;
 	}
 
 	@Override
