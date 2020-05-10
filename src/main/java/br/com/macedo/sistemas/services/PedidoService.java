@@ -22,13 +22,7 @@ public class PedidoService {
 	private ItemPedidoRepository itemPedidoRepository;
 	
 	@Autowired
-	private ClienteService clienteService;
-	
-	@Autowired
 	private ProdutoService produtoService;
-	
-	@Autowired
-	private FormaPagamentoService formaPagamentoService;
 	
 	public List<Pedido> findAll() {
 		return this.pedidoRepository.findAll();
@@ -88,15 +82,16 @@ public class PedidoService {
 		obj.setFormaPagamento(null);
 		obj.setCliente(null);
 		obj.setOpAtendimento(obj.getOpAtendimento());
-		obj = pedidoRepository.save(obj);
+		
 		
 		for (ItemPedido ip : obj.getItens()) {
 			ip.setDesconto(0.0);
-			System.out.println(ip.getProduto().getId());
 			ip.setProduto(produtoService.find(ip.getProduto().getId()));
 			ip.setPreco(ip.getProduto().getPreco());
 			ip.setPedido(obj);
 		}
+		
+		obj = pedidoRepository.save(obj);
 		itemPedidoRepository.saveAll(obj.getItens());
 		return obj;
 	}

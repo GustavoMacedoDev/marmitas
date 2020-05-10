@@ -76,8 +76,6 @@ public class PedidoController {
 		
 		FormaPagamento formaPagamentoBusca = new FormaPagamento();
 		formaPagamentoBusca = formaPagamentoService.find(Integer.parseInt(formaPagamento));
-		System.out.println(clienteBuscado.getNome());
-		System.out.println(formaPagamentoBusca.getFormaPagamento());
 		
 		OpcaoAtendimento op = new OpcaoAtendimento();
 		op.setId(2);
