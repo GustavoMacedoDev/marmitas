@@ -50,6 +50,9 @@ public class Pedido implements Serializable{
 	@ManyToOne
 	private OpcaoAtendimento opAtendimento;
 	
+	@Column(name = "status")
+	private int status = 0;
+	
 	public Pedido() {
 		// TODO Auto-generated constructor stub
 	}
@@ -130,6 +133,14 @@ public class Pedido implements Serializable{
 
 	public void setOpAtendimento(OpcaoAtendimento opAtendimento) {
 		this.opAtendimento = opAtendimento;
+	}
+
+	public int getStatus() {
+		return status;
+	}
+
+	public void setStatus(int status) {
+		this.status = status;
 	}
 
 

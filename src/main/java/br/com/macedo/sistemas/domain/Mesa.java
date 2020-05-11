@@ -36,6 +36,12 @@ public class Mesa implements Serializable{
 	@JsonIgnore
 	private List<Pagamento> pagamentos = new ArrayList<>();
 	
+	@Column(name = "valor_pago_parcial")
+	private double valorPagoParcial = 0;
+	
+	@Column(name = "total_mesa")
+	private double totalMesa = 0;
+	
 	public Mesa() {
 		// TODO Auto-generated constructor stub
 	}
@@ -79,6 +85,22 @@ public class Mesa implements Serializable{
 
 	public void setPagamentos(List<Pagamento> pagamentos) {
 		this.pagamentos = pagamentos;
+	}
+
+	public double getValorPagoParcial() {
+		return valorPagoParcial;
+	}
+
+	public void setValorPagoParcial(double valorPagoParcial) {
+		this.valorPagoParcial = valorPagoParcial;
+	}
+
+	public double getTotalMesa() {
+		return totalMesa;
+	}
+
+	public void setTotalMesa(double totalMesa) {
+		this.totalMesa = totalMesa;
 	}
 
 	@Override

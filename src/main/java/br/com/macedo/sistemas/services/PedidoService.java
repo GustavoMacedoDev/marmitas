@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.macedo.sistemas.domain.ItemPedido;
+import br.com.macedo.sistemas.domain.Mesa;
 import br.com.macedo.sistemas.domain.Pedido;
 import br.com.macedo.sistemas.repository.ItemPedidoRepository;
 import br.com.macedo.sistemas.repository.PedidoRepository;
@@ -24,6 +25,9 @@ public class PedidoService {
 	@Autowired
 	private ProdutoService produtoService;
 	
+	@Autowired
+	private MesaService mesaService;
+	
 	public List<Pedido> findAll() {
 		return this.pedidoRepository.findAll();
 	}
@@ -38,17 +42,8 @@ public class PedidoService {
 		ped.setInstante(pedido.get().getInstante());
 		ped.setMesa(pedido.get().getMesa());
 		
-		double soma = 0;
-		
-		for(ItemPedido it: pedido.get().getItens()) {
-			double preco = it.getPreco();
-			int quantidade = it.getQuantidade();
-			double total = preco * quantidade;
-			soma += total;
-			
-		}
 		ped.setIdPedido(pedido.get().getIdPedido());
-		ped.setTotalPedido(soma);
+		ped.setTotalPedido(pedido.get().getTotalPedido());
 		ped.setItens(pedido.get().getItens());
 		
 		return ped;		
@@ -62,16 +57,16 @@ public class PedidoService {
 		obj.setFormaPagamento(obj.getFormaPagamento());
 		obj.setCliente(obj.getCliente());
 		obj.setOpAtendimento(obj.getOpAtendimento());
-		obj = pedidoRepository.save(obj);
-		
+
 		for (ItemPedido ip : obj.getItens()) {
 			ip.setDesconto(0.0);
-			System.out.println(ip.getProduto().getId());
 			ip.setProduto(produtoService.find(ip.getProduto().getId()));
 			ip.setPreco(ip.getProduto().getPreco());
-			ip.setPedido(obj);
+			
 		}
+		obj = pedidoRepository.save(obj);
 		itemPedidoRepository.saveAll(obj.getItens());
+		
 		return obj;
 	}
 	
@@ -83,21 +78,42 @@ public class PedidoService {
 		obj.setCliente(null);
 		obj.setOpAtendimento(obj.getOpAtendimento());
 		
-		
+		double soma = 0;
 		for (ItemPedido ip : obj.getItens()) {
 			ip.setDesconto(0.0);
 			ip.setProduto(produtoService.find(ip.getProduto().getId()));
 			ip.setPreco(ip.getProduto().getPreco());
+			double preco = ip.getProduto().getPreco();
+			int quantidade = ip.getQuantidade();
+			double total = preco * quantidade;
+			soma += total;
 			ip.setPedido(obj);
 		}
 		
+		
+		obj.setTotalPedido(soma);
 		obj = pedidoRepository.save(obj);
 		itemPedidoRepository.saveAll(obj.getItens());
+		
+		atualizaMesa(obj);
 		return obj;
+	}
+
+	private void atualizaMesa(Pedido obj) {
+		mesaService.atualizaPagamentosMesa(obj);
 	}
 
 	public List<Pedido> findByOpAtendimentoId(Integer id) {
 		return this.pedidoRepository.findByOpAtendimentoId(id);
+	}
+
+	public List<Pedido> findByMesaId(Integer id) {
+		
+		return this.pedidoRepository.findByMesaId(id);
+	}
+
+	public void fechaPedidos(Mesa mesa) {
+		this.pedidoRepository.fechaPedidos(mesa.getId());
 	}
 	
 }

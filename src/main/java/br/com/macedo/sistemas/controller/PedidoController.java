@@ -1,10 +1,13 @@
 package br.com.macedo.sistemas.controller;
 
 import java.net.URI;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.validation.Valid;
 
+import org.hibernate.cache.spi.support.AbstractReadWriteAccess.Item;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -18,8 +21,10 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.com.macedo.sistemas.domain.Cliente;
 import br.com.macedo.sistemas.domain.FormaPagamento;
+import br.com.macedo.sistemas.domain.ItemPedido;
 import br.com.macedo.sistemas.domain.OpcaoAtendimento;
 import br.com.macedo.sistemas.domain.Pedido;
+import br.com.macedo.sistemas.dto.PedidoListaDto;
 import br.com.macedo.sistemas.dto.PedidoMesaDto;
 import br.com.macedo.sistemas.dto.PedidoNewDto;
 import br.com.macedo.sistemas.services.ClienteService;
@@ -56,7 +61,7 @@ public class PedidoController {
 		
 	}
 	
-	@RequestMapping(value = "/pedidoMesa/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/pedidoOpcao/{id}", method = RequestMethod.GET)
 	public @ResponseBody List<Pedido> findByOpAtendimento(@PathVariable Integer id) {
 		
 		List<Pedido> pedidos = this.pedidoService.findByOpAtendimentoId(id);
@@ -65,6 +70,34 @@ public class PedidoController {
 		
 	}
 	
+	@RequestMapping(value = "/pedidosMesa/{id}", method = RequestMethod.GET)
+	public @ResponseBody PedidoListaDto findByIdMesa(@PathVariable Integer id) {
+		
+		List<Pedido> pedidos = this.pedidoService.findByMesaId(id);
+		
+		PedidoListaDto pedidoListaDto = new PedidoListaDto();
+		
+		Set<ItemPedido> itens = new HashSet<>();
+		for(Pedido peds: pedidos) {
+			
+			itens.addAll(peds.getItens());
+			
+		}
+		
+		pedidoListaDto.setItens(itens);
+		pedidoListaDto.setInstante(pedidos.get(0).getInstante());
+		pedidoListaDto.setMesa(pedidos.get(0).getMesa());
+		
+		double totalMesa = pedidos.get(0).getMesa().getTotalMesa();
+		double valorPagoParcial = pedidos.get(0).getMesa().getValorPagoParcial();
+		
+		double valorEmAberto = totalMesa - valorPagoParcial;
+		
+		pedidoListaDto.setValorEmAberto(valorEmAberto);
+		
+		return pedidoListaDto;
+		
+	}
 	
 	@RequestMapping(value = "/order", method = RequestMethod.POST)
 	public ResponseEntity<Void> salvar(@Valid @RequestBody PedidoNewDto pedidonewDto) {

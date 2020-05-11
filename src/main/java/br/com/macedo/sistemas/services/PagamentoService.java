@@ -21,6 +21,9 @@ public class PagamentoService {
 	@Autowired
 	private FormaPagamentoService fpService;
 	
+	@Autowired
+	private MesaService mesaService;
+	
 	
 	public Pagamento insertPagamentoMesa(PagamentoDto pagamentoDto) {
 		
@@ -36,24 +39,15 @@ public class PagamentoService {
 		
 		this.pagamentoRepository.save(pagamento);
 		
-		verificaMesa(pagamento);
+		atualizaValorMesa(pagamento);
 		
 		return pagamento;
 		
 	}
 
 
-	private void verificaMesa(Pagamento pagamento) {
-		
-		List<Pagamento> pagamentos = this.pagamentoRepository.findByMesaId(pagamento.getMesa().getId());
-		
-		double total = 0;
-		for(Pagamento pags: pagamentos) {
-			double valor = pags.getValorPago();
-			total += valor;
-		}
-		
-		System.out.println(total);
+	private void atualizaValorMesa(Pagamento pagamento) {
+		this.mesaService.inserePagamentoMesa(pagamento);
 		
 	}
 
