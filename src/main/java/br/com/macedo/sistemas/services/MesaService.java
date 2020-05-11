@@ -24,8 +24,11 @@ public class MesaService {
 	@Autowired
 	private PedidoService pedidoService;
 	
+	@Autowired
+	private PagamentoService pagamentoService;
+	
 	public List<Mesa> findAll() {
-		return this.mesaRepository.findAll();
+		return this.mesaRepository.findAllByOrderByIdAsc();
 	}
 	
 	public Optional<Mesa> buscaMesaPorId(Integer id) {
@@ -85,11 +88,17 @@ public class MesaService {
 			mesa.setValorPagoParcial(0);
 			mesa.setTotalMesa(0);
 			novoValor = 0;
+			encerraPagamentos(pagamento);
 		}
 		
 		mesa.setValorPagoParcial(novoValor);
 		
 		mesaRepository.save(mesa);
+		
+	}
+
+	private void encerraPagamentos(Pagamento pagamento) {
+		this.pagamentoService.encerraPagamento(pagamento);
 		
 	}
 

@@ -61,4 +61,20 @@ public class PagamentoService {
 		return this.pagamentoRepository.findByMesaId(id);
 	}
 
+
+	public void encerraPagamento(Pagamento pagamento) {
+		List<Pagamento> pagamentos = this.pagamentoRepository.findByMesaId(pagamento.getMesa().getId());
+		
+		int status = 1;
+		
+		for(Pagamento pags: pagamentos) {
+			System.out.println(pags.getStatus());
+			pags.setStatus(status);
+			this.pagamentoRepository.save(pags);
+		}
+		
+		
+		
+	}
+
 }

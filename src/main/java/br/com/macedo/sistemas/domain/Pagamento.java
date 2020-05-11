@@ -31,6 +31,9 @@ public class Pagamento implements Serializable{
 	@JoinColumn(name = "mesa_id")
 	private Mesa mesa;
 	
+	@Column(name = "status")
+	private Integer status = 0;
+	
 	public Pagamento() {
 		// TODO Auto-generated constructor stub
 	}
@@ -65,6 +68,14 @@ public class Pagamento implements Serializable{
 
 	public void setMesa(Mesa mesa) {
 		this.mesa = mesa;
+	}
+
+	public Integer getStatus() {
+		return status;
+	}
+
+	public void setStatus(Integer status) {
+		this.status = status;
 	}
 
 	@Override

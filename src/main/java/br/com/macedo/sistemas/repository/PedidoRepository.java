@@ -13,8 +13,10 @@ import br.com.macedo.sistemas.domain.Pedido;
 
 public interface PedidoRepository extends JpaRepository<Pedido, Integer>{
 
+	@Query(value = "SELECT * FROM pedido where op_atendimento_id = ? and status = 0", nativeQuery = true)
 	List<Pedido> findByOpAtendimentoId(Integer id);
 	
+	@Query(value = "SELECT * FROM pedido where mesa_id = ? and status = 0", nativeQuery = true)
 	List<Pedido> findByMesaId(Integer id);
 
 	@Transactional

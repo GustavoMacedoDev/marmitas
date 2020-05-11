@@ -75,27 +75,32 @@ public class PedidoController {
 		
 		List<Pedido> pedidos = this.pedidoService.findByMesaId(id);
 		
-		PedidoListaDto pedidoListaDto = new PedidoListaDto();
-		
-		Set<ItemPedido> itens = new HashSet<>();
-		for(Pedido peds: pedidos) {
+		if(pedidos.isEmpty()) {
+			return null;
+		} else {
+			PedidoListaDto pedidoListaDto = new PedidoListaDto();
 			
-			itens.addAll(peds.getItens());
+			Set<ItemPedido> itens = new HashSet<>();
+			for(Pedido peds: pedidos) {
+				
+				itens.addAll(peds.getItens());
+				
+			}
 			
+			pedidoListaDto.setItens(itens);
+			pedidoListaDto.setInstante(pedidos.get(0).getInstante());
+			pedidoListaDto.setMesa(pedidos.get(0).getMesa());
+			
+			double totalMesa = pedidos.get(0).getMesa().getTotalMesa();
+			double valorPagoParcial = pedidos.get(0).getMesa().getValorPagoParcial();
+			
+			double valorEmAberto = totalMesa - valorPagoParcial;
+			
+			pedidoListaDto.setValorEmAberto(valorEmAberto);
+			pedidoListaDto.setValorTotalPedido(pedidos.get(0).getTotalPedido());		
+			return pedidoListaDto;
 		}
 		
-		pedidoListaDto.setItens(itens);
-		pedidoListaDto.setInstante(pedidos.get(0).getInstante());
-		pedidoListaDto.setMesa(pedidos.get(0).getMesa());
-		
-		double totalMesa = pedidos.get(0).getMesa().getTotalMesa();
-		double valorPagoParcial = pedidos.get(0).getMesa().getValorPagoParcial();
-		
-		double valorEmAberto = totalMesa - valorPagoParcial;
-		
-		pedidoListaDto.setValorEmAberto(valorEmAberto);
-		pedidoListaDto.setValorTotalPedido(pedidos.get(0).getTotalPedido());		
-		return pedidoListaDto;
 		
 	}
 	
