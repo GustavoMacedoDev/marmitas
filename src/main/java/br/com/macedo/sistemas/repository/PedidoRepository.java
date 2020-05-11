@@ -18,9 +18,9 @@ public interface PedidoRepository extends JpaRepository<Pedido, Integer>{
 	List<Pedido> findByMesaId(Integer id);
 
 	@Transactional
-	@Modifying(clearAutomatically = true)
-	@Query(value = "update pedido set status = 1 where mesa_id = ?1", nativeQuery = true)
-	Pedido fechaPedidos(Integer id);
+	@Modifying
+	@Query(value = "update pedido set status = 1 where mesa_id = ?", nativeQuery = true)
+	void fechaPedidos(Integer id);
 	
 	
 }

@@ -94,7 +94,7 @@ public class PedidoController {
 		double valorEmAberto = totalMesa - valorPagoParcial;
 		
 		pedidoListaDto.setValorEmAberto(valorEmAberto);
-		
+		pedidoListaDto.setValorTotalPedido(pedidos.get(0).getTotalPedido());		
 		return pedidoListaDto;
 		
 	}
