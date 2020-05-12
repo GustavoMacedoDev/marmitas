@@ -67,12 +67,11 @@ public class PagamentoService {
 		
 		int status = 1;
 		
-		for(Pagamento pags: pagamentos) {
-			System.out.println(pags.getStatus());
-			pags.setStatus(status);
-			this.pagamentoRepository.save(pags);
-		}
 		
+		pagamentos.forEach(pag -> {
+			pag.setStatus(status);
+			this.pagamentoRepository.save(pag);
+		});
 		
 		
 	}
