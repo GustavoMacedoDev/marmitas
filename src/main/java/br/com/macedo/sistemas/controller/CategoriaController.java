@@ -28,13 +28,14 @@ public class CategoriaController {
 	private CategoriaService categoriaService;
 	
 	@RequestMapping(value = "/categoria", method = RequestMethod.GET)
-	private @ResponseBody List<Categoria> listaCategorias() {
+	private @ResponseBody List<Categoria> listaTodasCategorias() {
 		return this.categoriaService.findAll();
 	}
 	
 	
 	@RequestMapping(value = "/categoria", method = RequestMethod.POST)
 	public ResponseEntity<Void> insert(@Valid @RequestBody CategoriaDTO objDto) {
+		
 		Categoria obj = categoriaService.fromDTO(objDto);
 		obj = categoriaService.insert(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()

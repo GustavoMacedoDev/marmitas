@@ -59,8 +59,6 @@ public class AuthenticationController {
 			@Valid @RequestBody JwtAuthenticationDto authenticationDto, BindingResult result)
 			throws AuthenticationException {
 		
-		System.out.println("Senha e email " + authenticationDto.getEmail() + " "+ authenticationDto.getSenha());
-		
 		Response<TokenDto> response = new Response<TokenDto>();
 
 		if (result.hasErrors()) {
@@ -69,8 +67,6 @@ public class AuthenticationController {
 			return ResponseEntity.badRequest().body(response);
 		}
 
-		log.info("Gerando token para o email {}.", authenticationDto.getEmail());
-		
 		Authentication authentication = authenticationManager
 				.authenticate(new UsernamePasswordAuthenticationToken(
 						authenticationDto.getEmail(), authenticationDto.getSenha()));
