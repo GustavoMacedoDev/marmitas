@@ -41,9 +41,6 @@ public class PessoaJuridicaController {
 	@Autowired
 	private PessoaJuridicaService pessoaJuridicaService;
 
-	public PessoaJuridicaController() {
-		// TODO Auto-generated constructor stub
-	}
 	
 	@RequestMapping(value = "/pj", method = RequestMethod.GET)
 	public @ResponseBody List<PessoaJuridica> findAll() {

@@ -71,16 +71,17 @@ ALTER TABLE forma_pagamento
 
 -- Table: mesa
 
-
+-- DROP TABLE mesa;
 
 CREATE TABLE mesa
 (
   id serial NOT NULL,
   codigo_mesa integer,
-  numero_mesa character varying(255),
+  numero_mesa character varying(255) NOT NULL,
   total_mesa double precision,
   valor_pago_parcial double precision,
-  CONSTRAINT mesa_pkey PRIMARY KEY (id)
+  CONSTRAINT mesa_pkey PRIMARY KEY (id),
+  CONSTRAINT numero_mesa_unique UNIQUE (numero_mesa)
 )
 WITH (
   OIDS=FALSE

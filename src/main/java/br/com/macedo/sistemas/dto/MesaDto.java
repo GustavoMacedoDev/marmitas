@@ -1,5 +1,6 @@
 package br.com.macedo.sistemas.dto;
 
+
 public class MesaDto {
 	
 	private String numeroMesa;

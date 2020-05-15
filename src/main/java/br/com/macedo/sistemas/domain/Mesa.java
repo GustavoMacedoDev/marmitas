@@ -11,11 +11,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-@Table(name = "mesa")
+@Table(name = "mesa", uniqueConstraints={@UniqueConstraint(columnNames={"numero_mesa"})})
 public class Mesa implements Serializable{
 
 	private static final long serialVersionUID = 1L;
@@ -25,6 +26,7 @@ public class Mesa implements Serializable{
 	
 	@Column(name = "numero_mesa", unique = true)
 	private String numeroMesa;
+	
 	@Column(name = "codigo_mesa")
 	private int codigoMesa;
 	
