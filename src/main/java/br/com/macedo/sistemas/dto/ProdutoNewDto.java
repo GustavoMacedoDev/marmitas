@@ -1,11 +1,16 @@
 package br.com.macedo.sistemas.dto;
 
+import br.com.macedo.sistemas.domain.Categoria;
+import br.com.macedo.sistemas.domain.OpcaoAtendimento;
+import br.com.macedo.sistemas.domain.PessoaJuridica;
+
 public class ProdutoNewDto {
 
 	private String nome;
 	private Double preco;
-	private int categoria;
-	private int restaurante;
+	private Categoria categoria;
+	private PessoaJuridica restaurante;
+	private OpcaoAtendimento opcao;
 	
 	public ProdutoNewDto() {
 		// TODO Auto-generated constructor stub
@@ -27,21 +32,30 @@ public class ProdutoNewDto {
 		this.preco = preco;
 	}
 
-	public int getCategoria() {
+	
+	
+	public Categoria getCategoria() {
 		return categoria;
 	}
 
-	public void setCategoria(int categoria) {
+	public void setCategoria(Categoria categoria) {
 		this.categoria = categoria;
 	}
 
-	public int getRestaurante() {
+	public PessoaJuridica getRestaurante() {
 		return restaurante;
 	}
 
-	public void setRestaurante(int restaurante) {
+	public void setRestaurante(PessoaJuridica restaurante) {
 		this.restaurante = restaurante;
 	}
 
+	public OpcaoAtendimento getOpcao() {
+		return opcao;
+	}
+
+	public void setOpcao(OpcaoAtendimento opcao) {
+		this.opcao = opcao;
+	}
 
 }

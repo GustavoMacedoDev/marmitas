@@ -11,6 +11,7 @@ public class PagamentoDto implements Serializable{
 	private String fPagamento;
 	private Double valorPago;
 	private Mesa mesa;
+	private String cliente;
 	
 	public PagamentoDto() {
 		// TODO Auto-generated constructor stub
@@ -39,7 +40,13 @@ public class PagamentoDto implements Serializable{
 	public void setMesa(Mesa mesa) {
 		this.mesa = mesa;
 	}
-	
-	
 
+	public String getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(String cliente) {
+		this.cliente = cliente;
+	}
+	
 }

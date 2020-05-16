@@ -113,6 +113,7 @@ CREATE TABLE pagamento
 (
   id serial NOT NULL,
   valor_pago double precision,
+  instante timestamp without time zone,
   forma_pagamento_id integer,
   mesa_id integer,
   status integer,
@@ -249,3 +250,29 @@ WITH (
 );
 ALTER TABLE usuario
   OWNER TO postgres;
+  
+  -- Table: item_pedido
+
+-- DROP TABLE item_pedido;
+
+CREATE TABLE item_pedido
+(
+  desconto double precision,
+  preco double precision,
+  quantidade integer,
+  pedido_id integer NOT NULL,
+  produto_id integer NOT NULL,
+  CONSTRAINT item_pedido_pkey PRIMARY KEY (pedido_id, produto_id),
+  CONSTRAINT fk60ym08cfoysa17wrn1swyiuda FOREIGN KEY (pedido_id)
+      REFERENCES pedido (id_pedido) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT fktk55mn6d6bvl5h0no5uagi3sf FOREIGN KEY (produto_id)
+      REFERENCES produto (id_produto) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE item_pedido
+  OWNER TO postgres;
+

@@ -1,5 +1,6 @@
 package br.com.macedo.sistemas.services;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -7,6 +8,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.com.macedo.sistemas.domain.Cliente;
 import br.com.macedo.sistemas.domain.FormaPagamento;
 import br.com.macedo.sistemas.domain.Pagamento;
 import br.com.macedo.sistemas.dto.PagamentoDto;
@@ -24,17 +26,23 @@ public class PagamentoService {
 	@Autowired
 	private MesaService mesaService;
 	
+	@Autowired
+	private ClienteService clienteService;
+	
 	
 	public Pagamento insertPagamentoMesa(PagamentoDto pagamentoDto) {
 		
 		String formaPagamento = pagamentoDto.getfPagamento();
 		FormaPagamento fPagamento =  fpService.find(Integer.parseInt(formaPagamento));
+		Cliente cliente = clienteService.find(Integer.parseInt(pagamentoDto.getCliente()));
 		
 		Pagamento pagamento = new Pagamento();
 		pagamento.setId(null);
+		pagamento.setInstante(new Date());
 		pagamento.setFormaPagamento(fPagamento);
 		pagamento.setValorPago(pagamentoDto.getValorPago());
 		pagamento.setMesa(pagamentoDto.getMesa());
+		pagamento.setCliente(cliente);
 
 		
 		this.pagamentoRepository.save(pagamento);

@@ -38,6 +38,10 @@ public class Cliente implements Serializable {
 	@OneToMany(mappedBy="cliente")
 	private List<Pedido> pedidos = new ArrayList<>();
 	
+	@JsonIgnore
+	@OneToMany(mappedBy="cliente")
+	private List<Pagamento> pagamentos = new ArrayList<>();
+	
 	public Cliente() {
 		// TODO Auto-generated constructor stub
 	}
@@ -90,6 +94,15 @@ public class Cliente implements Serializable {
 
 	public void setPedidos(List<Pedido> pedidos) {
 		this.pedidos = pedidos;
+	}
+
+	
+	public List<Pagamento> getPagamentos() {
+		return pagamentos;
+	}
+
+	public void setPagamentos(List<Pagamento> pagamentos) {
+		this.pagamentos = pagamentos;
 	}
 
 	@Override

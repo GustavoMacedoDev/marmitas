@@ -3,6 +3,7 @@ package br.com.macedo.sistemas.controller;
 import java.net.URI;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import javax.validation.Valid;
@@ -103,10 +104,28 @@ public class PedidoController {
 		
 	}
 	
+	@RequestMapping(value = "/pedidoEntrega/{id}", method = RequestMethod.GET)
+	public @ResponseBody Optional<Pedido> findByIdPedido(@PathVariable Integer id) {
+		
+		Optional<Pedido> pedido = this.pedidoService.findByPedidoId(id);
+		
+		Pedido ped;
+		
+		
+		
+		
+		return pedido;
+		
+		
+	}
+	
+	
 	@RequestMapping(value = "/order", method = RequestMethod.POST)
 	public ResponseEntity<Void> salvar(@Valid @RequestBody PedidoNewDto pedidonewDto) {
 		String cliente = pedidonewDto.getCliente();
 		String formaPagamento = pedidonewDto.getFormaPagamento();
+		
+		System.out.println(formaPagamento);
 		
 		Cliente clienteBuscado = new Cliente();
 		clienteBuscado = clienteService.find(Integer.parseInt(cliente));

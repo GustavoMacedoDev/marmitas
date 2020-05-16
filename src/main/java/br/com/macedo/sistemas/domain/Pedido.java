@@ -76,7 +76,6 @@ public class Pedido implements Serializable{
 	}
 
 
-
 	public Date getInstante() {
 		return instante;
 	}

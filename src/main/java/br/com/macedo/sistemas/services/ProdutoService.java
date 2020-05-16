@@ -19,11 +19,6 @@ public class ProdutoService {
 	@Autowired
 	private ProdutoRepository produtoRepository;
 	
-	@Autowired
-	private CategoriaService categoriaService;
-	
-	@Autowired
-	private PessoaJuridicaService pessoaJuridicaService;
 	
 	public List<Produto> findAllAtivos(int status) {
 		return this.produtoRepository.findAllByStatus(status);
@@ -44,11 +39,12 @@ public class ProdutoService {
 	
 	public Produto insert(ProdutoNewDto produtoNewDto) {
 		Produto produto = new Produto();
-		System.out.println(produtoNewDto.getRestaurante());
+		
 		produto.setNome(produtoNewDto.getNome());
 		produto.setPreco(produtoNewDto.getPreco());
-		produto.setCategoria(categoriaService.find(produtoNewDto.getCategoria()));
-		produto.setPessoaJuridica(pessoaJuridicaService.findByIdPj(produtoNewDto.getRestaurante()));
+		produto.setCategoria(produtoNewDto.getCategoria());
+		produto.setPessoaJuridica(produtoNewDto.getRestaurante());
+		produto.setOpAtendimento(produtoNewDto.getOpcao());
 		
 		produtoRepository.save(produto);
 		

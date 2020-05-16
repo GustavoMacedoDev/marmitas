@@ -1,6 +1,7 @@
 package br.com.macedo.sistemas.domain;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
 @Table(name = "pagamento")
@@ -23,6 +26,9 @@ public class Pagamento implements Serializable{
 	@Column(name = "valor_pago")
 	private Double valorPago;
 	
+	@JsonFormat(pattern="dd/MM/yyyy HH:mm")
+	private Date instante;
+	
 	@ManyToOne
 	@JoinColumn(name = "forma_pagamento_id")
 	private FormaPagamento formaPagamento;
@@ -30,6 +36,10 @@ public class Pagamento implements Serializable{
 	@ManyToOne
 	@JoinColumn(name = "mesa_id")
 	private Mesa mesa;
+	
+	@ManyToOne
+	@JoinColumn(name = "cliente_id")
+	private Cliente cliente;
 	
 	@Column(name = "status")
 	private Integer status = 0;
@@ -52,6 +62,15 @@ public class Pagamento implements Serializable{
 
 	public void setValorPago(Double valorPago) {
 		this.valorPago = valorPago;
+	}
+	
+
+	public Date getInstante() {
+		return instante;
+	}
+
+	public void setInstante(Date instante) {
+		this.instante = instante;
 	}
 
 	public FormaPagamento getFormaPagamento() {
@@ -76,6 +95,15 @@ public class Pagamento implements Serializable{
 
 	public void setStatus(Integer status) {
 		this.status = status;
+	}
+	
+
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
 	}
 
 	@Override

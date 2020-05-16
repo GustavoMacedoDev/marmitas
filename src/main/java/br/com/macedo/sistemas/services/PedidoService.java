@@ -62,8 +62,10 @@ public class PedidoService {
 			ip.setDesconto(0.0);
 			ip.setProduto(produtoService.find(ip.getProduto().getId()));
 			ip.setPreco(ip.getProduto().getPreco());
+			ip.setPedido(obj);
 			
 		}
+		
 		obj = pedidoRepository.save(obj);
 		itemPedidoRepository.saveAll(obj.getItens());
 		
@@ -79,7 +81,9 @@ public class PedidoService {
 		obj.setOpAtendimento(obj.getOpAtendimento());
 		
 		double soma = 0;
+		
 		for (ItemPedido ip : obj.getItens()) {
+			
 			ip.setDesconto(0.0);
 			ip.setProduto(produtoService.find(ip.getProduto().getId()));
 			ip.setPreco(ip.getProduto().getPreco());
@@ -89,6 +93,8 @@ public class PedidoService {
 			soma += total;
 			ip.setPedido(obj);
 		}
+		
+		
 		
 		
 		obj.setTotalPedido(soma);
@@ -114,6 +120,11 @@ public class PedidoService {
 
 	public void fechaPedidos(Mesa mesa) {
 		this.pedidoRepository.fechaPedidos(mesa.getId());
+	}
+
+	public Optional<Pedido> findByPedidoId(Integer id) {
+		return this.pedidoRepository.findById(id);
+				
 	}
 	
 }
