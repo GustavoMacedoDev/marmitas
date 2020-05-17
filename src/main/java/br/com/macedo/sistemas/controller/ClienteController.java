@@ -60,7 +60,7 @@ public class ClienteController {
 		}
 		clienteBuscaDto.setId(cliente.getId());
 		clienteBuscaDto.setNome(cliente.getNome());
-		clienteBuscaDto.setTelefone(cliente.getTelefone());
+	//	clienteBuscaDto.setTelefone(cliente.getTelefone());
 		
 		return clienteBuscaDto;
 	}

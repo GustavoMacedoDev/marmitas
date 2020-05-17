@@ -20,7 +20,7 @@ public class ClienteDTO implements Serializable{
 	private String nome;
 	
 	@NotEmpty(message="Preenchimento obrigatório")
-	private String telefone;
+	private Long telefone;
 	
 	public ClienteDTO() {
 		// TODO Auto-generated constructor stub
@@ -48,13 +48,15 @@ public class ClienteDTO implements Serializable{
 		this.nome = nome;
 	}
 
-	public String getTelefone() {
+	public Long getTelefone() {
 		return telefone;
 	}
 
-	public void setTelefone(String telefone) {
+	public void setTelefone(Long telefone) {
 		this.telefone = telefone;
 	}
+
+	
 	
 
 }

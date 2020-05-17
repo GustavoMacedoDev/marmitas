@@ -47,6 +47,9 @@ public class Pedido implements Serializable{
 	@Column(name = "total_pedido")
 	private Double totalPedido;
 	
+	@Column(name = "valor_pago")
+	private Double valorPago;
+	
 	@ManyToOne
 	private OpcaoAtendimento opAtendimento;
 	
@@ -142,6 +145,13 @@ public class Pedido implements Serializable{
 		this.status = status;
 	}
 
+	public Double getValorPago() {
+		return valorPago;
+	}
+
+	public void setValorPago(Double valorPago) {
+		this.valorPago = valorPago;
+	}
 
 	@Override
 	public int hashCode() {

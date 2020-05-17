@@ -24,8 +24,7 @@ public class ClienteNewDto implements Serializable{
 	@NotEmpty(message="Preenchimento obrigatório")
 	private String bairro;
 	
-	@NotEmpty(message="Preenchimento obrigatório")
-	private String telefone;
+	private Long telefone;
 
 	public ClienteNewDto() {
 		// TODO Auto-generated constructor stub
@@ -72,13 +71,13 @@ public class ClienteNewDto implements Serializable{
 		this.bairro = bairro;
 	}
 
-	public String getTelefone() {
+	public Long getTelefone() {
 		return telefone;
 	}
 
-	public void setTelefone(String telefone) {
+	public void setTelefone(Long telefone) {
 		this.telefone = telefone;
 	}
-	
+
 	
 }

@@ -29,7 +29,7 @@ public class Cliente implements Serializable {
 	private String nome;
 	
 	@Column
-	private String telefone;
+	private Long telefone;
 	
 	@OneToMany(mappedBy="cliente", cascade=CascadeType.ALL)
 	private List<Endereco> enderecos = new ArrayList<>();
@@ -46,7 +46,7 @@ public class Cliente implements Serializable {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Cliente(Integer id, String nome, String telefone) {
+	public Cliente(Integer id, String nome, Long telefone) {
 		super();
 		this.id = id;
 		this.nome = nome;
@@ -69,16 +69,14 @@ public class Cliente implements Serializable {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	
 
-	public String getTelefone() {
+	public Long getTelefone() {
 		return telefone;
 	}
 
-	public void setTelefone(String telefone) {
+	public void setTelefone(Long telefone) {
 		this.telefone = telefone;
 	}
-	
 
 	public List<Endereco> getEnderecos() {
 		return enderecos;

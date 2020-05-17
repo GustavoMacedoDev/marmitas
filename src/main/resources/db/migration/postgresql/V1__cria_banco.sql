@@ -15,13 +15,13 @@ ALTER TABLE categoria
 
 -- Table: cliente
 
-
+-- DROP TABLE cliente;
 
 CREATE TABLE cliente
 (
   id serial NOT NULL,
-  nome character varying(255),
-  telefone character varying(255),
+  nome character varying(255) NOT NULL,
+  telefone bigint NOT NULL,
   CONSTRAINT cliente_pkey PRIMARY KEY (id)
 )
 WITH (
@@ -143,6 +143,7 @@ CREATE TABLE pedido
   forma_pagamento_id integer,
   mesa_id integer,
   total_pedido double precision,
+  valor_pago double precision,
   op_atendimento_id integer,
   status integer,
   CONSTRAINT pedido_pkey PRIMARY KEY (id_pedido),

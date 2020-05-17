@@ -9,7 +9,9 @@ import org.springframework.stereotype.Service;
 
 import br.com.macedo.sistemas.domain.ItemPedido;
 import br.com.macedo.sistemas.domain.Mesa;
+import br.com.macedo.sistemas.domain.OpcaoAtendimento;
 import br.com.macedo.sistemas.domain.Pedido;
+import br.com.macedo.sistemas.dto.PedidoNewDto;
 import br.com.macedo.sistemas.repository.ItemPedidoRepository;
 import br.com.macedo.sistemas.repository.PedidoRepository;
 
@@ -32,11 +34,11 @@ public class PedidoService {
 		return this.pedidoRepository.findAll();
 	}
 	
-	public Pedido findById(Integer id) {
+	public Optional<Pedido> findById(Integer id) {
 		
 		Optional<Pedido> pedido = this.pedidoRepository.findById(id);
 
-		Pedido ped = new Pedido();
+		/*Pedido ped = new Pedido();
 		ped.setCliente(pedido.get().getCliente());
 		ped.setFormaPagamento(pedido.get().getFormaPagamento());
 		ped.setInstante(pedido.get().getInstante());
@@ -46,30 +48,37 @@ public class PedidoService {
 		ped.setTotalPedido(pedido.get().getTotalPedido());
 		ped.setItens(pedido.get().getItens());
 		
-		return ped;		
+		*/
+		
+		return pedido;		
 	}
 	
 	
-	public Pedido insertEntrega(Pedido obj) {
+	public Pedido insertEntrega(PedidoNewDto obj) {
 		
-		obj.setIdPedido(null);
-		obj.setInstante(new Date());
-		obj.setFormaPagamento(obj.getFormaPagamento());
-		obj.setCliente(obj.getCliente());
-		obj.setOpAtendimento(obj.getOpAtendimento());
+		OpcaoAtendimento op = new OpcaoAtendimento();
+		op.setId(2);
+		
+		Pedido pedido = new Pedido();
+		pedido.setInstante(new Date());
+		pedido.setCliente(obj.getCliente());
+		pedido.setFormaPagamento(obj.getFormaPagamento());
+		pedido.setOpAtendimento(op);
+		pedido.setTotalPedido(obj.getTotalPedido());
+		pedido.setValorPago(obj.getValorPago());
 
 		for (ItemPedido ip : obj.getItens()) {
 			ip.setDesconto(0.0);
 			ip.setProduto(produtoService.find(ip.getProduto().getId()));
 			ip.setPreco(ip.getProduto().getPreco());
-			ip.setPedido(obj);
+			ip.setPedido(pedido);
 			
 		}
 		
-		obj = pedidoRepository.save(obj);
+		pedido = pedidoRepository.save(pedido);
 		itemPedidoRepository.saveAll(obj.getItens());
 		
-		return obj;
+		return pedido;
 	}
 	
 	public Pedido insertMesa(Pedido obj) {

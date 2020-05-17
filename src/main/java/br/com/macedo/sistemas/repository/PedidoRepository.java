@@ -12,7 +12,7 @@ import org.springframework.data.jpa.repository.Query;
 import br.com.macedo.sistemas.domain.Pedido;
 
 public interface PedidoRepository extends JpaRepository<Pedido, Integer>{
-
+	
 	@Query(value = "SELECT * FROM pedido where op_atendimento_id = ? and status = 0", nativeQuery = true)
 	List<Pedido> findByOpAtendimentoId(Integer id);
 	
