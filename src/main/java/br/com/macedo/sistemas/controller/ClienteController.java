@@ -4,10 +4,9 @@ package br.com.macedo.sistemas.controller;
 import java.net.URI;
 import java.util.List;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -38,7 +37,7 @@ public class ClienteController {
 	}
 	
 	@RequestMapping(value = "/cadastrar-pf",method=RequestMethod.POST)
-	public ResponseEntity<Void> insert(@Valid @RequestBody ClienteNewDto objDto) {
+	public ResponseEntity<Void> insert(@Validated @RequestBody ClienteNewDto objDto) {
 		Cliente obj = clienteService.fromDTO(objDto);
 		obj = clienteService.insert(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()

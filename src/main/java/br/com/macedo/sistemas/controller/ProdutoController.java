@@ -3,10 +3,9 @@ package br.com.macedo.sistemas.controller;
 import java.net.URI;
 import java.util.List;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,6 +19,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import br.com.macedo.sistemas.domain.Produto;
 import br.com.macedo.sistemas.dto.ProdutoNewDto;
 import br.com.macedo.sistemas.services.ProdutoService;
+
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/api")
@@ -76,7 +76,7 @@ public class ProdutoController {
 	
 	
 	@PostMapping(value = "/produto")
-	public ResponseEntity<Void> insert(@Valid @RequestBody ProdutoNewDto produtoNewDto) {
+	public ResponseEntity<Void> insert(@Validated @RequestBody ProdutoNewDto produtoNewDto) {
 
 			
 		 Produto produto = produtoService.insert(produtoNewDto);
@@ -89,7 +89,7 @@ public class ProdutoController {
 	}
 	
 	@RequestMapping(value = "/produto", method = RequestMethod.PUT)
-	public ResponseEntity<Void> update(@Valid @RequestBody Produto produto) {
+	public ResponseEntity<Void> update(@Validated @RequestBody Produto produto) {
 		
 		produto = this.produtoService.update(produto);
 		

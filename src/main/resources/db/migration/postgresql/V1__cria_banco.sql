@@ -116,6 +116,7 @@ CREATE TABLE pagamento
   instante timestamp without time zone,
   forma_pagamento_id integer,
   mesa_id integer,
+  cliente_id integer,
   status integer,
   CONSTRAINT pagamento_pkey PRIMARY KEY (id),
   CONSTRAINT fk352ao69evqjcu1364qecchoht FOREIGN KEY (mesa_id)
@@ -123,6 +124,9 @@ CREATE TABLE pagamento
       ON UPDATE NO ACTION ON DELETE NO ACTION,
   CONSTRAINT fkn31voy77opqggmeklxo98saio FOREIGN KEY (forma_pagamento_id)
       REFERENCES forma_pagamento (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT cliente_id_fk FOREIGN KEY (cliente_id)
+      REFERENCES cliente (id) MATCH SIMPLE
       ON UPDATE NO ACTION ON DELETE NO ACTION
 )
 WITH (

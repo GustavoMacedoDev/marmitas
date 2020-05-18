@@ -1,10 +1,5 @@
 package br.com.macedo.sistemas.dto;
 
-import javax.validation.constraints.NotEmpty;
-
-import org.hibernate.validator.constraints.Length;
-import org.hibernate.validator.constraints.br.CNPJ;
-
 public class CadastroPjDto {
 
 	private Long id;
@@ -24,8 +19,6 @@ public class CadastroPjDto {
 	}
 
 
-	@NotEmpty(message = "Razão social não pode ser vazio.")
-	@Length(min = 5, max = 200, message = "Razão social deve conter entre 5 e 200 caracteres.")
 	public String getRazaoSocial() {
 		return razaoSocial;
 	}
@@ -34,8 +27,6 @@ public class CadastroPjDto {
 		this.razaoSocial = razaoSocial;
 	}
 
-	@NotEmpty(message = "CNPJ não pode ser vazio.")
-	@CNPJ(message="CNPJ inválido.")
 	public String getCnpj() {
 		return cnpj;
 	}

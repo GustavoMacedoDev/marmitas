@@ -3,7 +3,6 @@ package br.com.macedo.sistemas.controller;
 import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,6 +16,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -56,7 +56,7 @@ public class AuthenticationController {
 	 */
 	@PostMapping
 	public ResponseEntity<Response<TokenDto>> gerarTokenJwt(
-			@Valid @RequestBody JwtAuthenticationDto authenticationDto, BindingResult result)
+			@Validated @RequestBody JwtAuthenticationDto authenticationDto, BindingResult result)
 			throws AuthenticationException {
 		
 		Response<TokenDto> response = new Response<TokenDto>();

@@ -3,10 +3,9 @@ package br.com.macedo.sistemas.controller;
 import java.net.URI;
 import java.util.List;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -30,7 +29,9 @@ public class PagamentoController {
 
 	
 	@RequestMapping(value = "/pagamento", method = RequestMethod.POST)
-	public ResponseEntity<Void> salvar(@Valid @RequestBody PagamentoDto pagamentoDto ) {
+	public ResponseEntity<Void> salvar(@Validated @RequestBody PagamentoDto pagamentoDto ) {
+		
+		System.out.println(pagamentoDto.getCliente());
 		
 		Pagamento pagamento = this.pagamentoService.insertPagamentoMesa(pagamentoDto);
 		
@@ -46,7 +47,7 @@ public class PagamentoController {
 	}
 	
 	@RequestMapping(value = "/pagamento/mesa/{id}", method = RequestMethod.GET)
-	public @ResponseBody List<Pagamento> findByMesa(@Valid @PathVariable Integer id) {
+	public @ResponseBody List<Pagamento> findByMesa(@Validated @PathVariable Integer id) {
 		return this.pagamentoService.findByIdMesa(id);
 	}
 	

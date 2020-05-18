@@ -4,14 +4,13 @@ import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import java.util.Optional;
 
-import javax.validation.Valid;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -56,7 +55,7 @@ public class PessoaJuridicaController {
 	
 
 	@PostMapping(value = "/cadastrar-pj")
-	public ResponseEntity<Response<CadastroPjDto>> cadastrar(@Valid @RequestBody CadastroPjDto cadastroPjDto,
+	public ResponseEntity<Response<CadastroPjDto>> cadastrar(@Validated @RequestBody CadastroPjDto cadastroPjDto,
 			BindingResult result) throws NoSuchAlgorithmException {
 		log.info("Cadastrando PJ: {}", cadastroPjDto.toString());
 		Response<CadastroPjDto> response = new Response<CadastroPjDto>();

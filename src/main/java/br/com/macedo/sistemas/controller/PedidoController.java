@@ -6,10 +6,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -107,7 +106,7 @@ public class PedidoController {
 	
 	
 	@RequestMapping(value = "/order", method = RequestMethod.POST)
-	public ResponseEntity<Void> salvar(@Valid @RequestBody PedidoNewDto pedidonewDto) {
+	public ResponseEntity<Void> salvar(@Validated @RequestBody PedidoNewDto pedidonewDto) {
 				
 		Pedido pedido = pedidoService.insertEntrega(pedidonewDto);
 
@@ -118,7 +117,7 @@ public class PedidoController {
 	}
 	
 	@RequestMapping(value = "/orderMesa", method = RequestMethod.POST)
-	public ResponseEntity<Void> salvaPedidoMesa(@Valid @RequestBody PedidoMesaDto pedidoMesaDto) {
+	public ResponseEntity<Void> salvaPedidoMesa(@Validated @RequestBody PedidoMesaDto pedidoMesaDto) {
 		
 		System.out.println(pedidoMesaDto.getMesa());
 		OpcaoAtendimento op = new OpcaoAtendimento();

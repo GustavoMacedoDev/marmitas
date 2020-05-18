@@ -4,10 +4,9 @@ import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -36,7 +35,7 @@ public class MesaController {
 	}
 	
 	@RequestMapping(value = "/mesa/{id}", method = RequestMethod.GET)
-	public @ResponseBody Optional<Mesa> buscaMesaPorId(@Valid @PathVariable Integer id) {
+	public @ResponseBody Optional<Mesa> buscaMesaPorId(@Validated @PathVariable Integer id) {
 		
 		Optional<Mesa> mesa = this.mesaService.buscaMesaPorId(id);
 		
@@ -45,7 +44,7 @@ public class MesaController {
 	}
 
 	@PostMapping(value = "/mesa")
-	public ResponseEntity<Void> insert(@Valid @RequestBody MesaDto mesaDto) {
+	public ResponseEntity<Void> insert(@Validated @RequestBody MesaDto mesaDto) {
 
 		Mesa mesa = mesaService.insert(mesaDto);		
 		
