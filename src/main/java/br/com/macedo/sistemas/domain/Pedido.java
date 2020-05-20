@@ -1,8 +1,10 @@
 package br.com.macedo.sistemas.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -16,6 +18,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "pedido")
@@ -55,6 +58,13 @@ public class Pedido implements Serializable{
 	
 	@Column(name = "status")
 	private int status = 0;
+	
+	@Column(name = "observacao")
+	private String observacao;
+	
+	@OneToMany(mappedBy = "pedido")
+	@JsonIgnore
+	private List<Pagamento> pagamentos = new ArrayList<>();
 	
 	public Pedido() {
 		// TODO Auto-generated constructor stub
@@ -152,6 +162,23 @@ public class Pedido implements Serializable{
 	public void setValorPago(Double valorPago) {
 		this.valorPago = valorPago;
 	}
+	
+	public String getObservacao() {
+		return observacao;
+	}
+
+	public void setObservacao(String observacao) {
+		this.observacao = observacao;
+	}
+
+	public List<Pagamento> getPagamentos() {
+		return pagamentos;
+	}
+
+	public void setPagamentos(List<Pagamento> pagamentos) {
+		this.pagamentos = pagamentos;
+	}
+
 
 	@Override
 	public int hashCode() {

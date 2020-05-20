@@ -51,16 +51,15 @@ public class PagamentoController {
 		return this.pagamentoService.findByIdMesa(id);
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	@RequestMapping(value = "/pagamento/entrega/{id}", method = RequestMethod.GET)
+	public @ResponseBody List<Pagamento> findByEntrega(@Validated @PathVariable Integer id) {
+		return this.pagamentoService.findByIdPedido(id);
+	}
+
 }
+
+
+
+
+
+

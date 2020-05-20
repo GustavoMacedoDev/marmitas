@@ -21,6 +21,7 @@ public class PedidoNewDto implements Serializable{
 	private Set<ItemPedido> itens;
 	private Double totalPedido;
 	private Double valorPago;
+	private String observacao;
 	
 	
 	public PedidoNewDto() {
@@ -74,6 +75,12 @@ public class PedidoNewDto implements Serializable{
 	}
 	public void setValorPago(Double valorPago) {
 		this.valorPago = valorPago;
+	}
+	public String getObservacao() {
+		return observacao;
+	}
+	public void setObservacao(String observacao) {
+		this.observacao = observacao;
 	}
 	
 }

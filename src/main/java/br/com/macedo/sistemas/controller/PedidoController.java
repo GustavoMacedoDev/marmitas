@@ -21,6 +21,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import br.com.macedo.sistemas.domain.ItemPedido;
 import br.com.macedo.sistemas.domain.OpcaoAtendimento;
 import br.com.macedo.sistemas.domain.Pedido;
+import br.com.macedo.sistemas.dto.ListaPedidoEntregaDto;
 import br.com.macedo.sistemas.dto.PedidoListaDto;
 import br.com.macedo.sistemas.dto.PedidoMesaDto;
 import br.com.macedo.sistemas.dto.PedidoNewDto;
@@ -43,11 +44,11 @@ public class PedidoController {
 	}
 	
 	@RequestMapping(value = "/pedido/{id}", method = RequestMethod.GET)
-	public @ResponseBody Optional<Pedido> findById(@PathVariable Integer id) {
+	public @ResponseBody ListaPedidoEntregaDto findById(@PathVariable Integer id) {
 		
-		Optional<Pedido> pedido = this.pedidoService.findById(id);
+		ListaPedidoEntregaDto listaPedido = this.pedidoService.findById(id);
 		
-		return pedido;
+		return listaPedido;
 		
 	}
 	

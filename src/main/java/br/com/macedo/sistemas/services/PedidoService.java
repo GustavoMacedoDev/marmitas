@@ -11,6 +11,7 @@ import br.com.macedo.sistemas.domain.ItemPedido;
 import br.com.macedo.sistemas.domain.Mesa;
 import br.com.macedo.sistemas.domain.OpcaoAtendimento;
 import br.com.macedo.sistemas.domain.Pedido;
+import br.com.macedo.sistemas.dto.ListaPedidoEntregaDto;
 import br.com.macedo.sistemas.dto.PedidoNewDto;
 import br.com.macedo.sistemas.repository.ItemPedidoRepository;
 import br.com.macedo.sistemas.repository.PedidoRepository;
@@ -34,23 +35,21 @@ public class PedidoService {
 		return this.pedidoRepository.findAll();
 	}
 	
-	public Optional<Pedido> findById(Integer id) {
+	public ListaPedidoEntregaDto findById(Integer id) {
 		
-		Optional<Pedido> pedido = this.pedidoRepository.findById(id);
+		Pedido pedido = this.pedidoRepository.getOne(id);
 
-		/*Pedido ped = new Pedido();
-		ped.setCliente(pedido.get().getCliente());
-		ped.setFormaPagamento(pedido.get().getFormaPagamento());
-		ped.setInstante(pedido.get().getInstante());
-		ped.setMesa(pedido.get().getMesa());
+		ListaPedidoEntregaDto listaPedido = new ListaPedidoEntregaDto();
+		listaPedido.setIdPedido(pedido.getIdPedido());
+		listaPedido.setInstante(pedido.getInstante());
+		listaPedido.setCliente(pedido.getCliente());
+		listaPedido.setItens(pedido.getItens());
+		listaPedido.setFormaPagamento(pedido.getFormaPagamento());
+		listaPedido.setTotalPedido(pedido.getTotalPedido());
+		listaPedido.setValorPago(pedido.getValorPago());
+		listaPedido.setObservacao(pedido.getObservacao());
 		
-		ped.setIdPedido(pedido.get().getIdPedido());
-		ped.setTotalPedido(pedido.get().getTotalPedido());
-		ped.setItens(pedido.get().getItens());
-		
-		*/
-		
-		return pedido;		
+		return listaPedido;		
 	}
 	
 	
@@ -58,14 +57,24 @@ public class PedidoService {
 		
 		OpcaoAtendimento op = new OpcaoAtendimento();
 		op.setId(2);
-		
 		Pedido pedido = new Pedido();
+		
+		if(obj.getValorPago() != null)  {
+			System.out.println("oi meu chaapa");
+			pedido.setValorPago(obj.getValorPago());
+		} else {
+			pedido.setValorPago(obj.getTotalPedido());
+		}
+		
+		
 		pedido.setInstante(new Date());
 		pedido.setCliente(obj.getCliente());
 		pedido.setFormaPagamento(obj.getFormaPagamento());
 		pedido.setOpAtendimento(op);
 		pedido.setTotalPedido(obj.getTotalPedido());
-		pedido.setValorPago(obj.getValorPago());
+				
+				
+		pedido.setObservacao(obj.getObservacao());
 
 		for (ItemPedido ip : obj.getItens()) {
 			ip.setDesconto(0.0);

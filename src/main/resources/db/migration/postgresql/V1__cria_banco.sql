@@ -109,32 +109,7 @@ ALTER TABLE opcao_atendimento
 
 
 
-CREATE TABLE pagamento
-(
-  id serial NOT NULL,
-  valor_pago double precision,
-  instante timestamp without time zone,
-  forma_pagamento_id integer,
-  mesa_id integer,
-  cliente_id integer,
-  status integer,
-  CONSTRAINT pagamento_pkey PRIMARY KEY (id),
-  CONSTRAINT fk352ao69evqjcu1364qecchoht FOREIGN KEY (mesa_id)
-      REFERENCES mesa (id) MATCH SIMPLE
-      ON UPDATE NO ACTION ON DELETE NO ACTION,
-  CONSTRAINT fkn31voy77opqggmeklxo98saio FOREIGN KEY (forma_pagamento_id)
-      REFERENCES forma_pagamento (id) MATCH SIMPLE
-      ON UPDATE NO ACTION ON DELETE NO ACTION,
-  CONSTRAINT cliente_id_fk FOREIGN KEY (cliente_id)
-      REFERENCES cliente (id) MATCH SIMPLE
-      ON UPDATE NO ACTION ON DELETE NO ACTION
-)
-WITH (
-  OIDS=FALSE
-);
-ALTER TABLE pagamento
-  OWNER TO postgres;
-  
+
   -- Table: pedido
 
 
@@ -150,6 +125,7 @@ CREATE TABLE pedido
   valor_pago double precision,
   op_atendimento_id integer,
   status integer,
+  observacao character varying(500),
   CONSTRAINT pedido_pkey PRIMARY KEY (id_pedido),
   CONSTRAINT fk30s8j2ktpay6of18lbyqn3632 FOREIGN KEY (cliente_id)
       REFERENCES cliente (id) MATCH SIMPLE
@@ -170,7 +146,38 @@ WITH (
 ALTER TABLE pedido
   OWNER TO postgres;
   
-  
+ 
+CREATE TABLE pagamento
+(
+  id serial NOT NULL,
+  valor_pago double precision,
+  instante timestamp without time zone,
+  forma_pagamento_id integer,
+  mesa_id integer,
+  pedido_id integer,
+  cliente_id integer,
+  status integer,
+  CONSTRAINT pagamento_pkey PRIMARY KEY (id),
+  CONSTRAINT fk352ao69evqjcu1364qecchoht FOREIGN KEY (mesa_id)
+      REFERENCES mesa (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT pedido_id_fk FOREIGN KEY (pedido_id)
+      REFERENCES pedido (id_pedido) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT fkn31voy77opqggmeklxo98saio FOREIGN KEY (forma_pagamento_id)
+      REFERENCES forma_pagamento (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION,
+  CONSTRAINT cliente_id_fk FOREIGN KEY (cliente_id)
+      REFERENCES cliente (id) MATCH SIMPLE
+      ON UPDATE NO ACTION ON DELETE NO ACTION
+)
+WITH (
+  OIDS=FALSE
+);
+ALTER TABLE pagamento
+  OWNER TO postgres;
+   
+
   -- Table: pessoa_juridica
 
 

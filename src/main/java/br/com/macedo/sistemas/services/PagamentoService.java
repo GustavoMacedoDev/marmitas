@@ -68,6 +68,10 @@ public class PagamentoService {
 	public List<Pagamento> findByIdMesa(@Valid Integer id) {
 		return this.pagamentoRepository.findByMesaId(id);
 	}
+	
+	public List<Pagamento> findByIdPedido(@Valid Integer id) {
+		return this.pagamentoRepository.findByPedidoIdPedido(id);
+	}
 
 
 	public void encerraPagamento(Pagamento pagamento) {
@@ -83,5 +87,7 @@ public class PagamentoService {
 		
 		
 	}
-
+	
+	
+	
 }

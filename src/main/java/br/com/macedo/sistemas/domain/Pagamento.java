@@ -38,6 +38,10 @@ public class Pagamento implements Serializable{
 	private Mesa mesa;
 	
 	@ManyToOne
+	@JoinColumn(name = "pedido_id")
+	private Pedido pedido;
+	
+	@ManyToOne
 	@JoinColumn(name = "cliente_id")
 	private Cliente cliente;
 	
@@ -104,6 +108,14 @@ public class Pagamento implements Serializable{
 
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
+	}
+	
+	public Pedido getPedido() {
+		return pedido;
+	}
+
+	public void setPedido(Pedido pedido) {
+		this.pedido = pedido;
 	}
 
 	@Override
