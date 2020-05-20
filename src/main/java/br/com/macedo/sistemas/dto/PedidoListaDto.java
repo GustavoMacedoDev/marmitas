@@ -14,6 +14,7 @@ public class PedidoListaDto {
 	private Set<ItemPedido> itens = new HashSet<>();
 	private double valorEmAberto;
 	private double valorTotalPedido;
+	private String observacao;
 	
 	
 	public PedidoListaDto() {
@@ -58,7 +59,13 @@ public class PedidoListaDto {
 	public void setValorTotalPedido(double valorTotalPedido) {
 		this.valorTotalPedido = valorTotalPedido;
 	}
-	
-	
+
+	public String getObservacao() {
+		return observacao;
+	}
+
+	public void setObservacao(String observacao) {
+		this.observacao = observacao;
+	}
 	
 }

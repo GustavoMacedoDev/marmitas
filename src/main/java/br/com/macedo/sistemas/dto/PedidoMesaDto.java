@@ -12,6 +12,7 @@ public class PedidoMesaDto implements Serializable {
 	
 	private Mesa mesa;
 	private Set<ItemPedido> itens;
+	private String observacao;
 	
 	public PedidoMesaDto() {
 		// TODO Auto-generated constructor stub
@@ -32,7 +33,13 @@ public class PedidoMesaDto implements Serializable {
 	public void setItens(Set<ItemPedido> itens) {
 		this.itens = itens;
 	}
-	
-	
 
+	public String getObservacao() {
+		return observacao;
+	}
+
+	public void setObservacao(String observacao) {
+		this.observacao = observacao;
+	}
+	
 }

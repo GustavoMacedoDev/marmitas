@@ -130,6 +130,7 @@ public class PedidoService {
 	public List<Pedido> findByOpAtendimentoId(Integer id) {
 		return this.pedidoRepository.findByOpAtendimentoId(id);
 	}
+	
 
 	public List<Pedido> findByMesaId(Integer id) {
 		

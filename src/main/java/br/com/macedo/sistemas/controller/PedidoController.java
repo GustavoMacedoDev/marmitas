@@ -61,6 +61,7 @@ public class PedidoController {
 		
 	}
 	
+	
 	@RequestMapping(value = "/pedidosMesa/{id}", method = RequestMethod.GET)
 	public @ResponseBody PedidoListaDto findByIdMesa(@PathVariable Integer id) {
 		
@@ -88,7 +89,8 @@ public class PedidoController {
 			double valorEmAberto = totalMesa - valorPagoParcial;
 			
 			pedidoListaDto.setValorEmAberto(valorEmAberto);
-			pedidoListaDto.setValorTotalPedido(pedidos.get(0).getTotalPedido());		
+			pedidoListaDto.setValorTotalPedido(pedidos.get(0).getTotalPedido());
+			pedidoListaDto.setObservacao(pedidos.get(0).getObservacao());
 			return pedidoListaDto;
 		}
 		
@@ -129,6 +131,7 @@ public class PedidoController {
 		pedido.setItens(pedidoMesaDto.getItens());
 		pedido.setMesa(pedidoMesaDto.getMesa());
 		pedido.setOpAtendimento(op);
+		pedido.setObservacao(pedidoMesaDto.getObservacao());
 		
 		pedido = pedidoService.insertMesa(pedido);
 
