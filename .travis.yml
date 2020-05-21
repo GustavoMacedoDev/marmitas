@@ -1,7 +1,9 @@
 language: java
+jdk:
+  - oraclejdk12
 before_install:
   - chmod +x mvnw
 services:
   - postgresql
 before_script:
-  - psql -c 'create database marmitas;' -U postgres
+  - psql -c 'create database teste;' -U postgres
