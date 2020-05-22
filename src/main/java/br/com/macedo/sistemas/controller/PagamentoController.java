@@ -16,7 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.com.macedo.sistemas.domain.Pagamento;
-import br.com.macedo.sistemas.dto.PagamentoDto;
+import br.com.macedo.sistemas.dto.PagamentoEntregaDto;
+import br.com.macedo.sistemas.dto.PagamentoMesaDto;
 import br.com.macedo.sistemas.services.PagamentoService;
 
 @CrossOrigin(origins = "http://localhost:4200/", maxAge = 3600)
@@ -29,11 +30,22 @@ public class PagamentoController {
 
 	
 	@RequestMapping(value = "/pagamento", method = RequestMethod.POST)
-	public ResponseEntity<Void> salvar(@Validated @RequestBody PagamentoDto pagamentoDto ) {
+	public ResponseEntity<Void> salvar(@Validated @RequestBody PagamentoMesaDto pagamentoDto ) {
 		
-		System.out.println(pagamentoDto.getCliente());
 		
 		Pagamento pagamento = this.pagamentoService.insertPagamentoMesa(pagamentoDto);
+		
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
+				.path("/{id}").buildAndExpand(pagamento.getId()).toUri();
+		return ResponseEntity.created(uri).build();
+	
+	}
+	
+	@RequestMapping(value = "/pagamentoentrega", method = RequestMethod.POST)
+	public ResponseEntity<Void> salvarPagamentoEntrega(@Validated @RequestBody PagamentoEntregaDto pagamentoDto ) {
+		
+		
+		Pagamento pagamento = this.pagamentoService.insertPagamentoEntrega(pagamentoDto);
 		
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
 				.path("/{id}").buildAndExpand(pagamento.getId()).toUri();

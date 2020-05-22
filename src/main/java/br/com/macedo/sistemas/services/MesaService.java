@@ -103,7 +103,7 @@ public class MesaService {
 	}
 
 	private void fechaPedidos(Mesa mesa) {
-		this.pedidoService.fechaPedidos(mesa);
+		this.pedidoService.fechaPedidosMesa(mesa);
 		
 	}
 }

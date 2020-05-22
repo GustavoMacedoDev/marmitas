@@ -2,9 +2,11 @@ package br.com.macedo.sistemas.repository;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
 import br.com.macedo.sistemas.domain.Pagamento;
@@ -18,6 +20,11 @@ public interface PagamentoRepository extends JpaRepository<Pagamento, Integer>{
 	List<Pagamento> buscaPagamentos();
 
 	List<Pagamento> findByPedidoIdPedido(@Valid Integer id);
+
+	@Transactional
+	@Modifying
+	@Query(value = "update pagamento set status = 1 where id = ?", nativeQuery = true)
+	void encerraPagamento(Integer id);
 
 
 }

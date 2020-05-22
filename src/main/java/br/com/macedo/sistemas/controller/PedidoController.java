@@ -61,6 +61,15 @@ public class PedidoController {
 		
 	}
 	
+	@RequestMapping(value = "/pedidoInativosOpcao/{id}", method = RequestMethod.GET)
+	public @ResponseBody List<Pedido> findByOpAtendimentoInativos(@PathVariable Integer id) {
+		
+		List<Pedido> pedidos = this.pedidoService.findByOpAtendimentoIdInativos(id);
+		
+		return pedidos;
+		
+	}
+	
 	
 	@RequestMapping(value = "/pedidosMesa/{id}", method = RequestMethod.GET)
 	public @ResponseBody PedidoListaDto findByIdMesa(@PathVariable Integer id) {

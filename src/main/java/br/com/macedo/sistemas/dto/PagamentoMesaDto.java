@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 import br.com.macedo.sistemas.domain.Mesa;
 
-public class PagamentoDto implements Serializable{
+public class PagamentoMesaDto implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -13,7 +13,7 @@ public class PagamentoDto implements Serializable{
 	private Mesa mesa;
 	private String cliente;
 	
-	public PagamentoDto() {
+	public PagamentoMesaDto() {
 		// TODO Auto-generated constructor stub
 	}
 

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import br.com.macedo.sistemas.domain.ItemPedido;
 import br.com.macedo.sistemas.domain.Mesa;
 import br.com.macedo.sistemas.domain.OpcaoAtendimento;
+import br.com.macedo.sistemas.domain.Pagamento;
 import br.com.macedo.sistemas.domain.Pedido;
 import br.com.macedo.sistemas.dto.ListaPedidoEntregaDto;
 import br.com.macedo.sistemas.dto.PedidoNewDto;
@@ -137,13 +138,26 @@ public class PedidoService {
 		return this.pedidoRepository.findByMesaId(id);
 	}
 
-	public void fechaPedidos(Mesa mesa) {
-		this.pedidoRepository.fechaPedidos(mesa.getId());
+	public void fechaPedidosMesa(Mesa mesa) {
+		this.pedidoRepository.fechaPedidosMesa(mesa.getId());
+	}
+	
+	public void fechaPedidosEntrega(Pedido pedido) {
+		this.pedidoRepository.fechaPedidosMesa(pedido.getIdPedido());
 	}
 
 	public Optional<Pedido> findByPedidoId(Integer id) {
 		return this.pedidoRepository.findById(id);
 				
+	}
+
+	public void fechaPedido(Integer id) {
+		this.pedidoRepository.fechaPedidosEntrega(id);
+		
+	}
+
+	public List<Pedido> findByOpAtendimentoIdInativos(Integer id) {
+		return this.pedidoRepository.findByOpAtendimentoIdInativos(id);
 	}
 	
 }

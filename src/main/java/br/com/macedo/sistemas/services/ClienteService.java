@@ -53,7 +53,7 @@ public class ClienteService {
 	
 	
 	public List<Cliente> findAll() {
-		return clienteRepository.findAll();
+		return clienteRepository.findAllByOrderByIdAsc();
 	}
 	
 	public Cliente findByTelefone(String telefone) {
