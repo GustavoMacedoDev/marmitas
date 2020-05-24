@@ -10,10 +10,10 @@ import org.springframework.stereotype.Service;
 import br.com.macedo.sistemas.domain.ItemPedido;
 import br.com.macedo.sistemas.domain.Mesa;
 import br.com.macedo.sistemas.domain.OpcaoAtendimento;
-import br.com.macedo.sistemas.domain.Pagamento;
 import br.com.macedo.sistemas.domain.Pedido;
 import br.com.macedo.sistemas.dto.ListaPedidoEntregaDto;
 import br.com.macedo.sistemas.dto.PedidoNewDto;
+import br.com.macedo.sistemas.exceptions.ObjectNotFoundException;
 import br.com.macedo.sistemas.repository.ItemPedidoRepository;
 import br.com.macedo.sistemas.repository.PedidoRepository;
 
@@ -158,6 +158,14 @@ public class PedidoService {
 
 	public List<Pedido> findByOpAtendimentoIdInativos(Integer id) {
 		return this.pedidoRepository.findByOpAtendimentoIdInativos(id);
+	}
+
+	public Pedido find(Integer idPedido) {
+		
+		Optional<Pedido> obj = pedidoRepository.findById(idPedido);
+		
+		return obj.orElseThrow(() -> new ObjectNotFoundException(
+				"Objeto não encontrado! Id: " + idPedido + ", Tipo: " + Pedido.class.getName()));
 	}
 	
 }

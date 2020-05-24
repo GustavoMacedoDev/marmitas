@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import br.com.macedo.sistemas.domain.Cliente;
 import br.com.macedo.sistemas.domain.FormaPagamento;
 import br.com.macedo.sistemas.domain.Pagamento;
+import br.com.macedo.sistemas.domain.Pedido;
 import br.com.macedo.sistemas.dto.PagamentoEntregaDto;
 import br.com.macedo.sistemas.dto.PagamentoMesaDto;
 import br.com.macedo.sistemas.repository.PagamentoRepository;
@@ -62,6 +63,7 @@ public class PagamentoService {
 		String formaPagamento = pagamentoDto.getfPagamento();
 		FormaPagamento fPagamento =  fpService.find(Integer.parseInt(formaPagamento));
 		Cliente cliente = clienteService.find(Integer.parseInt(pagamentoDto.getCliente()));
+		Pedido pedido = pedidoService.find(pagamentoDto.getIdPedido());
 		
 		Pagamento pagamento = new Pagamento();
 		pagamento.setId(null);
@@ -69,6 +71,7 @@ public class PagamentoService {
 		pagamento.setFormaPagamento(fPagamento);
 		pagamento.setValorPago(pagamentoDto.getValorPago());
 		pagamento.setCliente(cliente);
+		pagamento.setPedido(pedido);
 		
 		this.pagamentoRepository.save(pagamento);
 		
