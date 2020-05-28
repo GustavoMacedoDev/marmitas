@@ -22,7 +22,8 @@ CREATE TABLE cliente
   id serial NOT NULL,
   nome character varying(255) NOT NULL,
   telefone bigint NOT NULL,
-  CONSTRAINT cliente_pkey PRIMARY KEY (id)
+  CONSTRAINT cliente_pkey PRIMARY KEY (id),
+  CONSTRAINT telefone_unique UNIQUE (telefone)
 )
 WITH (
   OIDS=FALSE
