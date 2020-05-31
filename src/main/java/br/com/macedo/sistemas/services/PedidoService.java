@@ -113,14 +113,40 @@ public class PedidoService {
 			ip.setPedido(obj);
 		}
 		
-		
-		
-		
 		obj.setTotalPedido(soma);
 		obj = pedidoRepository.save(obj);
 		itemPedidoRepository.saveAll(obj.getItens());
 		
 		atualizaMesa(obj);
+		return obj;
+	}
+	
+	public Pedido insertBalcao(Pedido obj) {
+		
+		obj.setIdPedido(null);
+		obj.setInstante(new Date());
+		obj.setFormaPagamento(null);
+		obj.setCliente(null);
+		obj.setOpAtendimento(obj.getOpAtendimento());
+		
+		double soma = 0;
+		
+		for (ItemPedido ip : obj.getItens()) {
+			
+			ip.setDesconto(0.0);
+			ip.setProduto(produtoService.find(ip.getProduto().getId()));
+			ip.setPreco(ip.getProduto().getPreco());
+			double preco = ip.getProduto().getPreco();
+			int quantidade = ip.getQuantidade();
+			double total = preco * quantidade;
+			soma += total;
+			ip.setPedido(obj);
+		}
+		
+		obj.setTotalPedido(soma);
+		obj = pedidoRepository.save(obj);
+		itemPedidoRepository.saveAll(obj.getItens());
+		
 		return obj;
 	}
 

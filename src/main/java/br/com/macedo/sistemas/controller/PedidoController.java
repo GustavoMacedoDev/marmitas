@@ -150,6 +150,26 @@ public class PedidoController {
 		
 	}
 	
+	@RequestMapping(value = "/orderBalcao", method = RequestMethod.POST)
+	public ResponseEntity<Void> salvaPedidoBalcao(@Validated @RequestBody PedidoMesaDto pedidoMesaDto) {
+		
+		OpcaoAtendimento op = new OpcaoAtendimento();
+		op.setId(1);
+		Pedido pedido = new Pedido();
+		pedido.setCliente(null);
+		pedido.setFormaPagamento(null);
+		pedido.setItens(pedidoMesaDto.getItens());
+		pedido.setOpAtendimento(op);
+		pedido.setObservacao(pedidoMesaDto.getObservacao());
+		
+		pedido = pedidoService.insertBalcao(pedido);
+
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
+				.path("/{id}").buildAndExpand(pedido.getIdPedido()).toUri();
+		return ResponseEntity.created(uri).build();
+		
+	}
+	
 	
 	
 	

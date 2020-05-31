@@ -20,7 +20,7 @@ import br.com.macedo.sistemas.domain.Produto;
 import br.com.macedo.sistemas.dto.ProdutoNewDto;
 import br.com.macedo.sistemas.services.ProdutoService;
 
-@CrossOrigin(origins = "*", maxAge = 3600)
+@CrossOrigin(origins = "http://localhost:4200/", maxAge = 3600)
 @RestController
 @RequestMapping("/api")
 public class ProdutoController {
@@ -90,13 +90,13 @@ public class ProdutoController {
 	
 	@RequestMapping(value = "/produto", method = RequestMethod.PUT)
 	public ResponseEntity<Void> update(@Validated @RequestBody Produto produto) {
-		
+		System.out.println("AQuiiiiii");
 		produto = this.produtoService.update(produto);
 		
 		return ResponseEntity.noContent().build();
 	}
 	
-	@RequestMapping(value = "/produtoinativa/{id}", method = RequestMethod.PUT)
+	@RequestMapping(value = "/produto/{id}", method = RequestMethod.PUT)
 	public ResponseEntity<Void> inativaProduto(@PathVariable Integer id) {
 		
 		this.produtoService.inativa(id);
