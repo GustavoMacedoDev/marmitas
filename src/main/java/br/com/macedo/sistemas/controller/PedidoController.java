@@ -116,6 +116,16 @@ public class PedidoController {
 		
 	}
 	
+	@RequestMapping(value = "/pedidoBalcao/{id}", method = RequestMethod.GET)
+	public @ResponseBody Optional<Pedido> findByIdPedidoBalcao(@PathVariable Integer id) {
+		
+		Optional<Pedido> pedido = this.pedidoService.findByPedidoId(id);
+		
+		return pedido;
+		
+		
+	}
+	
 	
 	@RequestMapping(value = "/order", method = RequestMethod.POST)
 	public ResponseEntity<Void> salvar(@Validated @RequestBody PedidoNewDto pedidonewDto) {
